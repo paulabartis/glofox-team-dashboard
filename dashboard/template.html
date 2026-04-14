@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glofox Team Dashboard — W{{ week_number }}</title>
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Tokens ── */
+:root {
+  --bg-dark:     #0f1117;
+  --bg-card:     #1a1d27;
+  --bg-alt:      #1e2133;
+  --border:      #2a2d3e;
+  --text:        #e8eaf0;
+  --muted:       #8b8fa8;
+  --blue:        #4f8ef7;
+  --green:       #2ecc71;
+  --amber:       #f39c12;
+  --red:         #e74c3c;
+  --purple:      #9b59b6;
+  --radius:      8px;
+  --gap:         16px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── Layout ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px 48px; }
+
+/* ── Header ── */
+.header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+}
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-logo { font-size: 13px; font-weight: 700; color: var(--blue); letter-spacing: 0.06em; text-transform: uppercase; }
+.header-title { font-size: 20px; font-weight: 600; color: var(--text); }
+.header-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.header-right { text-align: right; }
+
+/* ── Section heading ── */
+.section { margin-bottom: 32px; }
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.card-alt { background: var(--bg-alt); }
+
+/* ── Grid ── */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); }
+
+/* ── April Overview Banner ── */
+.april-banner {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.april-banner-left { }
+.april-banner-label { font-size: 11px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.april-banner-headline { font-size: 28px; font-weight: 700; color: var(--text); }
+.april-banner-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.april-banner-sub span { color: var(--red); font-weight: 600; }
+.april-banner-right { display: flex; gap: 32px; }
+.april-stat { text-align: center; }
+.april-stat-val { font-size: 22px; font-weight: 700; }
+.april-stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ── April region cards ── */
+.april-region-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.april-region-pacing { font-size: 28px; font-weight: 700; color: var(--text); }
+.april-region-aop { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.april-region-gap { font-size: 13px; font-weight: 600; margin-top: 6px; }
+.gap-neg { color: var(--red); }
+.gap-pos { color: var(--green); }
+.april-cvr { font-size: 11px; color: var(--muted); margin-top: 10px; }
+.april-cvr span { color: var(--text); }
+
+/* Progress bar */
+.progress-wrap { margin-top: 12px; }
+.progress-track {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+.progress-label { font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; }
+
+/* ── Q2 Pacing cards ── */
+.pacing-region { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.pacing-target { font-size: 11px; color: var(--muted); }
+.pacing-metric { font-size: 30px; font-weight: 700; color: var(--text); margin: 6px 0 2px; }
+.pacing-of { font-size: 13px; color: var(--muted); }
+.pacing-run-rate { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.pacing-run-rate span { color: var(--text); font-weight: 600; }
+
+/* Status badges */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+.badge-on-track  { background: rgba(46,204,113,0.15); color: var(--green); }
+.badge-at-risk   { background: rgba(243,156,18,0.15); color: var(--amber); }
+.badge-behind    { background: rgba(231,76,60,0.15);  color: var(--red);   }
+.badge-tbc       { background: rgba(139,143,168,0.12); color: var(--muted); }
+.badge-active    { background: rgba(46,204,113,0.15); color: var(--green); }
+.badge-in-progress { background: rgba(79,142,247,0.15); color: var(--blue); }
+.badge-not-started { background: rgba(139,143,168,0.12); color: var(--muted); }
+.badge-blocked   { background: rgba(231,76,60,0.15);  color: var(--red); }
+.badge-complete  { background: rgba(139,143,168,0.12); color: var(--muted); }
+
+/* ── Activities ── */
+.team-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.team-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.team-count { font-size: 11px; color: var(--muted); }
+
+.activity-row {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: start;
+}
+.activity-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+.activity-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
+.activity-meta { font-size: 11px; color: var(--muted); margin-top: 3px; display: flex; gap: 10px; flex-wrap: wrap; }
+.activity-meta-item { display: flex; align-items: center; gap: 3px; }
+.activity-region { color: var(--muted); }
+.activity-impact-high   { color: var(--text); font-weight: 600; }
+.activity-impact-medium { color: var(--muted); }
+.activity-impact-low    { color: var(--muted); opacity: 0.7; }
+.activity-sql { color: var(--blue); font-weight: 600; }
+.activity-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.activity-week { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+/* Q2 scenario table */
+.scenario-table { width: 100%; border-collapse: collapse; }
+.scenario-table th {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted); text-align: right; padding: 0 10px 8px; border-bottom: 1px solid var(--border);
+}
+.scenario-table th:first-child { text-align: left; }
+.scenario-table td {
+  font-size: 13px; color: var(--text); text-align: right;
+  padding: 8px 10px; border-bottom: 1px solid var(--border);
+}
+.scenario-table td:first-child { text-align: left; color: var(--muted); }
+.scenario-table tr:last-child td { border-bottom: none; }
+.scenario-table .row-best td { color: var(--green); }
+.scenario-table .row-best td:first-child { color: var(--green); }
+.scenario-table .row-aop td { color: var(--blue); font-weight: 700; }
+.scenario-table .row-aop td:first-child { color: var(--blue); }
+.scenario-highlight { font-weight: 700; }
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  margin-top: 32px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* helpers */
+.text-green  { color: var(--green); }
+.text-amber  { color: var(--amber); }
+.text-red    { color: var(--red); }
+.text-blue   { color: var(--blue); }
+.text-purple { color: var(--purple); }
+.text-muted  { color: var(--muted); }
+.fw-700 { font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════════ -->
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="header-logo">Glofox SMB</div>
+      <div class="header-title">Team Dashboard</div>
+    </div>
+    <div class="header-right">
+      <div style="font-size:13px; color:var(--muted);">Week {{ week_number }} &nbsp;·&nbsp; {{ weeks_elapsed }} weeks into Q2</div>
+      <div class="header-meta">Last updated {{ last_updated }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══ APRIL PACING OVERVIEW ════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">April Spotlight</div>
+
+  <!-- Banner -->
+  <div class="april-banner" style="margin-bottom:12px;">
+    <div class="april-banner-left">
+      <div class="april-banner-label">April 2026 SQL Forecast</div>
+      <div class="april-banner-headline">{{ april.current_pacing_total | int }} SQL pacing</div>
+      <div class="april-banner-sub">
+        vs AOP target <strong style="color:var(--text)">{{ april.aop_total | int }}</strong>
+        &nbsp;·&nbsp;
+        <span>{{ april.gap_display }} vs AOP</span>
+        &nbsp;·&nbsp;
+        {% set pct_below = ((april.aop_total - april.current_pacing_total) / april.aop_total * 100) | round(0) | int %}
+        {{ pct_below }}% below AOP
+      </div>
+    </div>
+    <div class="april-banner-right">
+      {% if april.actuals_total > 0 %}
+      <div class="april-stat">
+        <div class="april-stat-val text-green">{{ april.actuals_total | int }}</div>
+        <div class="april-stat-label">Actuals to date</div>
+      </div>
+      {% endif %}
+      <div class="april-stat">
+        <div class="april-stat-val text-blue">{{ april.current_pacing_total | int }}</div>
+        <div class="april-stat-label">11-day pacing</div>
+      </div>
+      <div class="april-stat">
+        <div class="april-stat-val text-muted">{{ april.aop_total | int }}</div>
+        <div class="april-stat-label">AOP target</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pacing progress bar -->
+  <div class="card" style="margin-bottom:12px; padding:14px 20px;">
+    {% set pacing_pct_val = (april.current_pacing_total / april.aop_total * 100) | round(1) %}
+    <div class="progress-label" style="margin-bottom:4px;">
+      <span style="font-size:12px; color:var(--muted);">11-day pacing vs AOP</span>
+      <span style="font-size:12px; color:var(--text); font-weight:600;">{{ pacing_pct_val }}%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"
+           style="width:{{ [pacing_pct_val, 100] | min }}%;
+                  background: {% if pacing_pct_val >= 95 %}var(--green){% elif pacing_pct_val >= 80 %}var(--amber){% else %}var(--red){% endif %};">
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 region cards -->
+  <div class="grid-3">
+    {% for r in regions %}
+    <div class="card">
+      <div class="april-region-label">{{ r.name }}</div>
+      <div class="april-region-pacing">{{ r.april_current_pacing | int }}</div>
+      <div class="april-region-aop">vs AOP {{ r.april_aop | int }}</div>
+      {% set gap = r.april_current_pacing - r.april_aop %}
+      <div class="april-region-gap {% if gap >= 0 %}gap-pos{% else %}gap-neg{% endif %}">
+        {{ "%+d" | format(gap | int) }} vs AOP
+      </div>
+
+      <!-- April progress bar -->
+      <div class="progress-wrap">
+        {% set apr_pct = (r.april_current_pacing / r.april_aop * 100) | round(1) %}
+        <div class="progress-label">
+          <span>Pacing</span><span>{{ apr_pct }}%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"
+               style="width:{{ [apr_pct, 100] | min }}%;
+                      background:{% if r.name == 'APAC' %}var(--green){% elif apr_pct >= 95 %}var(--green){% elif apr_pct >= 80 %}var(--amber){% else %}var(--red){% endif %};">
+          </div>
+        </div>
+      </div>
+
+      <div class="april-cvr">
+        Paid CVR <span>{{ r.cvr_paid_display }}</span>
+        &nbsp;·&nbsp;
+        NP CVR <span>{{ r.cvr_np_display }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- ══ Q2 PACING ════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Q2 Pacing &nbsp;·&nbsp; {{ weeks_elapsed }} of 13 weeks elapsed</div>
+
+  <div class="grid-3">
+    {% for r in regions %}
+    {% set q2_elapsed_pct = (weeks_elapsed / 13 * 100) | round(1) %}
+    {% set q2_actual_pct = (r.actuals_q2 / r.target_q2 * 100) | round(1) if r.target_q2 else 0 %}
+    <div class="card">
+      <div class="pacing-region">{{ r.name }}</div>
+      <div class="pacing-metric">{{ "{:,}".format(r.actuals_q2) }}</div>
+      <div class="pacing-of">of {{ "{:,}".format(r.target_q2) }} Q2 target</div>
+
+      <!-- Dual progress: timeline vs actuals -->
+      <div class="progress-wrap" style="margin-top:14px;">
+        <div class="progress-label">
+          <span>Q2 elapsed</span><span>{{ q2_elapsed_pct }}%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:{{ [q2_elapsed_pct, 100] | min }}%; background:var(--border); opacity:0.6;"></div>
+        </div>
+      </div>
+      <div class="progress-wrap" style="margin-top:6px;">
+        <div class="progress-label">
+          <span>SQLs delivered</span><span>{{ q2_actual_pct }}%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"
+               style="width:{{ [q2_actual_pct, 100] | min }}%;
+                      background:{% if r.status == 'on_track' %}var(--green){% elif r.status == 'at_risk' %}var(--amber){% elif r.status == 'behind' %}var(--red){% else %}var(--muted){% endif %};">
+          </div>
+        </div>
+      </div>
+
+      <div class="pacing-run-rate" style="margin-top:10px;">
+        Run rate needed: <span>{{ r.run_rate_needed_display }}</span>
+      </div>
+
+      <div>
+        {% if r.status == 'on_track' %}
+        <span class="badge badge-on-track">On Track</span>
+        {% elif r.status == 'at_risk' %}
+        <span class="badge badge-at-risk">At Risk</span>
+        {% elif r.status == 'behind' %}
+        <span class="badge badge-behind">Behind</span>
+        {% else %}
+        <span class="badge badge-tbc">TBC</span>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Q2 scenario range -->
+  <div class="card card-alt" style="margin-top:12px;">
+    <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Q2 Scenario Range</div>
+    <table class="scenario-table">
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>NA</th>
+          <th>EMEA</th>
+          <th>APAC</th>
+          <th>SMB Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Worst Case</td>
+          <td>{{ "{:,}".format(q2_scenarios.worst.NA) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.worst.EMEA) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.worst.APAC) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.worst.smb) }}</td>
+        </tr>
+        <tr>
+          <td>Hold-Rate</td>
+          <td>{{ "{:,}".format(q2_scenarios.hold_rate.NA) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.hold_rate.EMEA) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.hold_rate.APAC) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.hold_rate.smb) }}</td>
+        </tr>
+        <tr>
+          <td>Apr Pacing</td>
+          <td>{{ "{:,}".format(q2_scenarios.apr_pacing.NA) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.apr_pacing.EMEA) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.apr_pacing.APAC) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.apr_pacing.smb) }}</td>
+        </tr>
+        <tr class="row-best">
+          <td>Best Case</td>
+          <td>{{ "{:,}".format(q2_scenarios.best.NA) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.best.EMEA) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.best.APAC) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.best.smb) }}</td>
+        </tr>
+        <tr class="row-aop">
+          <td>AOP Target</td>
+          <td>{{ "{:,}".format(q2_scenarios.aop.NA) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.aop.EMEA) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.aop.APAC) }}</td>
+          <td>{{ "{:,}".format(q2_scenarios.aop.smb) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ ACTIVITIES IN FLIGHT ════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Activities in Flight</div>
+
+  <div class="grid-3">
+
+    <!-- PAID -->
+    <div class="card">
+      <div class="team-card-header">
+        <div>
+          <div class="team-name">Paid</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:1px;">Aman Dayal</div>
+        </div>
+        <div class="team-count">{{ activities.paid | length }} items</div>
+      </div>
+      {% for a in activities.paid %}
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">{{ a.title }}</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">{{ a.region }}</span>
+            {% if a.sql_impact %}
+            <span class="activity-meta-item activity-sql">{{ a.sql_impact }} SQL</span>
+            {% endif %}
+            <span class="activity-meta-item activity-impact-{{ a.impact }}">{{ a.impact }}</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          {% set s = a.status | lower | replace(' ', '-') %}
+          <span class="badge badge-{{ s }}">{{ a.status }}</span>
+          <span class="activity-week">{{ a.target_week }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- NON-PAID -->
+    <div class="card">
+      <div class="team-card-header">
+        <div>
+          <div class="team-name">Non-Paid</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:1px;">Tanya · Kaeli · Angharad</div>
+        </div>
+        <div class="team-count">{{ activities.non_paid | length }} items</div>
+      </div>
+      {% for a in activities.non_paid %}
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">{{ a.title }}</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">{{ a.region }}</span>
+            {% if a.sql_impact %}
+            <span class="activity-meta-item activity-sql">{{ a.sql_impact }} SQL</span>
+            {% endif %}
+            <span class="activity-meta-item activity-impact-{{ a.impact }}">{{ a.impact }}</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          {% set s = a.status | lower | replace(' ', '-') %}
+          <span class="badge badge-{{ s }}">{{ a.status }}</span>
+          <span class="activity-week">{{ a.target_week }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- WEB / SEO -->
+    <div class="card">
+      <div class="team-card-header">
+        <div>
+          <div class="team-name">Web / SEO</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:1px;">Ben · Web team</div>
+        </div>
+        <div class="team-count">{{ activities.web_seo | length }} items</div>
+      </div>
+      {% for a in activities.web_seo %}
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">{{ a.title }}</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">{{ a.region }}</span>
+            {% if a.sql_impact %}
+            <span class="activity-meta-item activity-sql">{{ a.sql_impact }} SQL</span>
+            {% endif %}
+            <span class="activity-meta-item activity-impact-{{ a.impact }}">{{ a.impact }}</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          {% set s = a.status | lower | replace(' ', '-') %}
+          <span class="badge badge-{{ s }}">{{ a.status }}</span>
+          <span class="activity-week">{{ a.target_week }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  Glofox SMB Demand Gen &nbsp;·&nbsp; Last updated {{ last_updated }} &nbsp;·&nbsp; Week {{ week_number }}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+{
+  "meta": {
+    "q2_start": "2026-04-01",
+    "q2_end": "2026-06-30",
+    "q2_weeks_total": 13,
+    "last_updated": "2026-04-14"
+  },
+  "targets": {
+    "q2": {
+      "NA": 1052,
+      "EMEA": 750,
+      "APAC": 90
+    },
+    "april": {
+      "aop": {
+        "NA": 367,
+        "EMEA": 262,
+        "APAC": 30,
+        "total": 659
+      },
+      "hold_rate": {
+        "NA": 242,
+        "EMEA": 213,
+        "APAC": 48,
+        "total": 503
+      },
+      "current_pacing": {
+        "NA": 243,
+        "EMEA": 166,
+        "APAC": 25,
+        "total": 434
+      }
+    },
+    "q2_scenarios": {
+      "worst":      { "NA": 788,  "EMEA": 639, "APAC": 153, "smb": 1427 },
+      "hold_rate":  { "NA": 846,  "EMEA": 655, "APAC": 130, "smb": 1501 },
+      "apr_pacing": { "NA": 881,  "EMEA": 614, "APAC": 119, "smb": 1495 },
+      "best":       { "NA": 979,  "EMEA": 717, "APAC": 132, "smb": 1696 },
+      "aop":        { "NA": 1052, "EMEA": 750, "APAC": 90,  "smb": 1802 }
+    }
+  },
+  "actuals": {
+    "q2_to_date": { "NA": 0, "EMEA": 0, "APAC": 0 },
+    "april":      { "NA": 0, "EMEA": 0, "APAC": 0, "total": 0 }
+  },
+  "cvr_march": {
+    "NA":   { "paid": 0.205, "np": 0.266 },
+    "EMEA": { "paid": 0.222, "np": 0.239 },
+    "APAC": { "paid": 0.313, "np": 0.325 }
+  },
+  "activities": {
+    "paid": [
+      {
+        "title": "RSA copy tests + tCPA reset + PMax structural reset",
+        "status": "in progress",
+        "impact": "high",
+        "region": "NA + EMEA",
+        "owner": "Aman",
+        "target_week": "W2 Apr",
+        "sql_impact": "+280",
+        "notes": "LP quality dep on Ben/Web — competitor LPs due Apr 30"
+      },
+      {
+        "title": "Competitor CA + USA keyword expansion + Bing scale",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA",
+        "owner": "Aman",
+        "target_week": "Apr–May",
+        "sql_impact": "+25",
+        "notes": "Bing at 24% CVR — most reliable volume lever"
+      },
+      {
+        "title": "EMEA WW keyword expansion (Bsport, Gymdesk, Mariana Tek)",
+        "status": "not started",
+        "impact": "medium",
+        "region": "EMEA",
+        "owner": "Aman",
+        "target_week": "W1 May",
+        "sql_impact": "+25",
+        "notes": "Bing WW LP fix required before scaling"
+      },
+      {
+        "title": "AU paid channel expansion (Google AU + Bing AU)",
+        "status": "not started",
+        "impact": "low",
+        "region": "APAC",
+        "owner": "Aman / Angharad",
+        "target_week": "W2 May",
+        "sql_impact": "+10",
+        "notes": "TBC with Angharad — APAC Q2 paid plan"
+      }
+    ],
+    "non_paid": [
+      {
+        "title": "Demand Gen → MCL reclassification",
+        "status": "in progress",
+        "impact": "high",
+        "region": "NA + EMEA",
+        "owner": "Tanya / Kaeli",
+        "target_week": "W2 Apr",
+        "sql_impact": "metric fix",
+        "notes": "440 NA + 42 EMEA leads reclassified; NP CVR cleans immediately"
+      },
+      {
+        "title": "Email nurture streams + Warmly sequences",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA",
+        "owner": "Tanya / Kaeli",
+        "target_week": "W3 Apr",
+        "sql_impact": "+73",
+        "notes": "Awareness→Consideration→Decision nurture; MCL pool → Q3 recycling"
+      },
+      {
+        "title": "FIBO event + post-FIBO webinar",
+        "status": "in progress",
+        "impact": "high",
+        "region": "EMEA",
+        "owner": "Tanya / Angharad",
+        "target_week": "Apr",
+        "sql_impact": "+75",
+        "notes": "Highest-confidence EMEA volume lever — must execute in April"
+      },
+      {
+        "title": "Athletech series + GymLaunch webinar",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "EMEA",
+        "owner": "Tanya / Angharad",
+        "target_week": "Apr–May",
+        "sql_impact": "volume lever",
+        "notes": "Apr email + May report; Pilates Journal sponsorship"
+      },
+      {
+        "title": "APAC events + partnerships",
+        "status": "not started",
+        "impact": "low",
+        "region": "APAC",
+        "owner": "Angharad",
+        "target_week": "Apr",
+        "sql_impact": "+10",
+        "notes": "TBC with Angharad — APAC Q2 NP plan"
+      }
+    ],
+    "web_seo": [
+      {
+        "title": "5 competitor LPs (MBO, Momence, WL, Zenplanner, Mariana Tek)",
+        "status": "in progress",
+        "impact": "high",
+        "region": "NA + EMEA",
+        "owner": "Ben / Web",
+        "target_week": "Apr 30",
+        "sql_impact": "unlocks Paid CVR",
+        "notes": "Critical dependency for +280 SQL Paid CVR improvement"
+      },
+      {
+        "title": "7 modality organic pages",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA + EMEA",
+        "owner": "Ben / Web",
+        "target_week": "Apr",
+        "sql_impact": "+25",
+        "notes": "Pilates, Yoga, Wellness Studio, Boxing — support paid + NP"
+      },
+      {
+        "title": "Homepage redesign + CRO",
+        "status": "not started",
+        "impact": "high",
+        "region": "NA",
+        "owner": "Ben / Web",
+        "target_week": "W1 May",
+        "sql_impact": "+73",
+        "notes": "Biggest single NP lever; requires form tests Apr first"
+      },
+      {
+        "title": "4 ROI Calculator lead magnets",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA",
+        "owner": "Ben / Web",
+        "target_week": "Apr",
+        "sql_impact": "volume lever",
+        "notes": "High-intent NP MQL volume growth"
+      },
+      {
+        "title": "Payments webinar (Apr 28)",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA",
+        "owner": "Kaeli / Ben",
+        "target_week": "Apr 28",
+        "sql_impact": "volume lever",
+        "notes": "KO list-building tie-in Apr–May"
+      }
+    ]
+  }
+}

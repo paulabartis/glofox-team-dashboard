@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glofox Team Dashboard — W16</title>
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Tokens ── */
+:root {
+  --bg-dark:     #0f1117;
+  --bg-card:     #1a1d27;
+  --bg-alt:      #1e2133;
+  --border:      #2a2d3e;
+  --text:        #e8eaf0;
+  --muted:       #8b8fa8;
+  --blue:        #4f8ef7;
+  --green:       #2ecc71;
+  --amber:       #f39c12;
+  --red:         #e74c3c;
+  --purple:      #9b59b6;
+  --radius:      8px;
+  --gap:         16px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── Layout ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px 48px; }
+
+/* ── Header ── */
+.header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+}
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-logo { font-size: 13px; font-weight: 700; color: var(--blue); letter-spacing: 0.06em; text-transform: uppercase; }
+.header-title { font-size: 20px; font-weight: 600; color: var(--text); }
+.header-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.header-right { text-align: right; }
+
+/* ── Section heading ── */
+.section { margin-bottom: 32px; }
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.card-alt { background: var(--bg-alt); }
+
+/* ── Grid ── */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); }
+
+/* ── April Overview Banner ── */
+.april-banner {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.april-banner-left { }
+.april-banner-label { font-size: 11px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.april-banner-headline { font-size: 28px; font-weight: 700; color: var(--text); }
+.april-banner-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.april-banner-sub span { color: var(--red); font-weight: 600; }
+.april-banner-right { display: flex; gap: 32px; }
+.april-stat { text-align: center; }
+.april-stat-val { font-size: 22px; font-weight: 700; }
+.april-stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ── April region cards ── */
+.april-region-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.april-region-pacing { font-size: 28px; font-weight: 700; color: var(--text); }
+.april-region-aop { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.april-region-gap { font-size: 13px; font-weight: 600; margin-top: 6px; }
+.gap-neg { color: var(--red); }
+.gap-pos { color: var(--green); }
+.april-cvr { font-size: 11px; color: var(--muted); margin-top: 10px; }
+.april-cvr span { color: var(--text); }
+
+/* Progress bar */
+.progress-wrap { margin-top: 12px; }
+.progress-track {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+.progress-label { font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; }
+
+/* ── Q2 Pacing cards ── */
+.pacing-region { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.pacing-target { font-size: 11px; color: var(--muted); }
+.pacing-metric { font-size: 30px; font-weight: 700; color: var(--text); margin: 6px 0 2px; }
+.pacing-of { font-size: 13px; color: var(--muted); }
+.pacing-run-rate { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.pacing-run-rate span { color: var(--text); font-weight: 600; }
+
+/* Status badges */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+.badge-on-track  { background: rgba(46,204,113,0.15); color: var(--green); }
+.badge-at-risk   { background: rgba(243,156,18,0.15); color: var(--amber); }
+.badge-behind    { background: rgba(231,76,60,0.15);  color: var(--red);   }
+.badge-tbc       { background: rgba(139,143,168,0.12); color: var(--muted); }
+.badge-active    { background: rgba(46,204,113,0.15); color: var(--green); }
+.badge-in-progress { background: rgba(79,142,247,0.15); color: var(--blue); }
+.badge-not-started { background: rgba(139,143,168,0.12); color: var(--muted); }
+.badge-blocked   { background: rgba(231,76,60,0.15);  color: var(--red); }
+.badge-complete  { background: rgba(139,143,168,0.12); color: var(--muted); }
+
+/* ── Activities ── */
+.team-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.team-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.team-count { font-size: 11px; color: var(--muted); }
+
+.activity-row {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: start;
+}
+.activity-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+.activity-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
+.activity-meta { font-size: 11px; color: var(--muted); margin-top: 3px; display: flex; gap: 10px; flex-wrap: wrap; }
+.activity-meta-item { display: flex; align-items: center; gap: 3px; }
+.activity-region { color: var(--muted); }
+.activity-impact-high   { color: var(--text); font-weight: 600; }
+.activity-impact-medium { color: var(--muted); }
+.activity-impact-low    { color: var(--muted); opacity: 0.7; }
+.activity-sql { color: var(--blue); font-weight: 600; }
+.activity-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.activity-week { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+/* Q2 scenario table */
+.scenario-table { width: 100%; border-collapse: collapse; }
+.scenario-table th {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted); text-align: right; padding: 0 10px 8px; border-bottom: 1px solid var(--border);
+}
+.scenario-table th:first-child { text-align: left; }
+.scenario-table td {
+  font-size: 13px; color: var(--text); text-align: right;
+  padding: 8px 10px; border-bottom: 1px solid var(--border);
+}
+.scenario-table td:first-child { text-align: left; color: var(--muted); }
+.scenario-table tr:last-child td { border-bottom: none; }
+.scenario-table .row-best td { color: var(--green); }
+.scenario-table .row-best td:first-child { color: var(--green); }
+.scenario-table .row-aop td { color: var(--blue); font-weight: 700; }
+.scenario-table .row-aop td:first-child { color: var(--blue); }
+.scenario-highlight { font-weight: 700; }
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  margin-top: 32px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* helpers */
+.text-green  { color: var(--green); }
+.text-amber  { color: var(--amber); }
+.text-red    { color: var(--red); }
+.text-blue   { color: var(--blue); }
+.text-purple { color: var(--purple); }
+.text-muted  { color: var(--muted); }
+.fw-700 { font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════════ -->
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="header-logo">Glofox SMB</div>
+      <div class="header-title">Team Dashboard</div>
+    </div>
+    <div class="header-right">
+      <div style="font-size:13px; color:var(--muted);">Week 16 &nbsp;·&nbsp; 1.9 weeks into Q2</div>
+      <div class="header-meta">Last updated 2026-04-14</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══ APRIL PACING OVERVIEW ════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">April Spotlight</div>
+
+  <!-- Banner -->
+  <div class="april-banner" style="margin-bottom:12px;">
+    <div class="april-banner-left">
+      <div class="april-banner-label">April 2026 SQL Forecast</div>
+      <div class="april-banner-headline">434 SQL pacing</div>
+      <div class="april-banner-sub">
+        vs AOP target <strong style="color:var(--text)">659</strong>
+        &nbsp;·&nbsp;
+        <span>-225 vs AOP</span>
+        &nbsp;·&nbsp;
+        
+        34% below AOP
+      </div>
+    </div>
+    <div class="april-banner-right">
+      
+      <div class="april-stat">
+        <div class="april-stat-val text-blue">434</div>
+        <div class="april-stat-label">11-day pacing</div>
+      </div>
+      <div class="april-stat">
+        <div class="april-stat-val text-muted">659</div>
+        <div class="april-stat-label">AOP target</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pacing progress bar -->
+  <div class="card" style="margin-bottom:12px; padding:14px 20px;">
+    
+    <div class="progress-label" style="margin-bottom:4px;">
+      <span style="font-size:12px; color:var(--muted);">11-day pacing vs AOP</span>
+      <span style="font-size:12px; color:var(--text); font-weight:600;">65.9%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"
+           style="width:65.9%;
+                  background: var(--red);">
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 region cards -->
+  <div class="grid-3">
+    
+    <div class="card">
+      <div class="april-region-label">NA</div>
+      <div class="april-region-pacing">243</div>
+      <div class="april-region-aop">vs AOP 367</div>
+      
+      <div class="april-region-gap gap-neg">
+        -124 vs AOP
+      </div>
+
+      <!-- April progress bar -->
+      <div class="progress-wrap">
+        
+        <div class="progress-label">
+          <span>Pacing</span><span>66.2%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"
+               style="width:66.2%;
+                      background:var(--red);">
+          </div>
+        </div>
+      </div>
+
+      <div class="april-cvr">
+        Paid CVR <span>20.5%</span>
+        &nbsp;·&nbsp;
+        NP CVR <span>26.6%</span>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="april-region-label">EMEA</div>
+      <div class="april-region-pacing">166</div>
+      <div class="april-region-aop">vs AOP 262</div>
+      
+      <div class="april-region-gap gap-neg">
+        -96 vs AOP
+      </div>
+
+      <!-- April progress bar -->
+      <div class="progress-wrap">
+        
+        <div class="progress-label">
+          <span>Pacing</span><span>63.4%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"
+               style="width:63.4%;
+                      background:var(--red);">
+          </div>
+        </div>
+      </div>
+
+      <div class="april-cvr">
+        Paid CVR <span>22.2%</span>
+        &nbsp;·&nbsp;
+        NP CVR <span>23.9%</span>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="april-region-label">APAC</div>
+      <div class="april-region-pacing">25</div>
+      <div class="april-region-aop">vs AOP 30</div>
+      
+      <div class="april-region-gap gap-neg">
+        -5 vs AOP
+      </div>
+
+      <!-- April progress bar -->
+      <div class="progress-wrap">
+        
+        <div class="progress-label">
+          <span>Pacing</span><span>83.3%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"
+               style="width:83.3%;
+                      background:var(--green);">
+          </div>
+        </div>
+      </div>
+
+      <div class="april-cvr">
+        Paid CVR <span>31.3%</span>
+        &nbsp;·&nbsp;
+        NP CVR <span>32.5%</span>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- ══ Q2 PACING ════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Q2 Pacing &nbsp;·&nbsp; 1.9 of 13 weeks elapsed</div>
+
+  <div class="grid-3">
+    
+    
+    
+    <div class="card">
+      <div class="pacing-region">NA</div>
+      <div class="pacing-metric">0</div>
+      <div class="pacing-of">of 1,052 Q2 target</div>
+
+      <!-- Dual progress: timeline vs actuals -->
+      <div class="progress-wrap" style="margin-top:14px;">
+        <div class="progress-label">
+          <span>Q2 elapsed</span><span>14.6%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:14.6%; background:var(--border); opacity:0.6;"></div>
+        </div>
+      </div>
+      <div class="progress-wrap" style="margin-top:6px;">
+        <div class="progress-label">
+          <span>SQLs delivered</span><span>0.0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"
+               style="width:0.0%;
+                      background:var(--red);">
+          </div>
+        </div>
+      </div>
+
+      <div class="pacing-run-rate" style="margin-top:10px;">
+        Run rate needed: <span>94/wk</span>
+      </div>
+
+      <div>
+        
+        <span class="badge badge-behind">Behind</span>
+        
+      </div>
+    </div>
+    
+    
+    
+    <div class="card">
+      <div class="pacing-region">EMEA</div>
+      <div class="pacing-metric">0</div>
+      <div class="pacing-of">of 750 Q2 target</div>
+
+      <!-- Dual progress: timeline vs actuals -->
+      <div class="progress-wrap" style="margin-top:14px;">
+        <div class="progress-label">
+          <span>Q2 elapsed</span><span>14.6%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:14.6%; background:var(--border); opacity:0.6;"></div>
+        </div>
+      </div>
+      <div class="progress-wrap" style="margin-top:6px;">
+        <div class="progress-label">
+          <span>SQLs delivered</span><span>0.0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"
+               style="width:0.0%;
+                      background:var(--red);">
+          </div>
+        </div>
+      </div>
+
+      <div class="pacing-run-rate" style="margin-top:10px;">
+        Run rate needed: <span>67/wk</span>
+      </div>
+
+      <div>
+        
+        <span class="badge badge-behind">Behind</span>
+        
+      </div>
+    </div>
+    
+    
+    
+    <div class="card">
+      <div class="pacing-region">APAC</div>
+      <div class="pacing-metric">0</div>
+      <div class="pacing-of">of 90 Q2 target</div>
+
+      <!-- Dual progress: timeline vs actuals -->
+      <div class="progress-wrap" style="margin-top:14px;">
+        <div class="progress-label">
+          <span>Q2 elapsed</span><span>14.6%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:14.6%; background:var(--border); opacity:0.6;"></div>
+        </div>
+      </div>
+      <div class="progress-wrap" style="margin-top:6px;">
+        <div class="progress-label">
+          <span>SQLs delivered</span><span>0.0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"
+               style="width:0.0%;
+                      background:var(--red);">
+          </div>
+        </div>
+      </div>
+
+      <div class="pacing-run-rate" style="margin-top:10px;">
+        Run rate needed: <span>8/wk</span>
+      </div>
+
+      <div>
+        
+        <span class="badge badge-behind">Behind</span>
+        
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Q2 scenario range -->
+  <div class="card card-alt" style="margin-top:12px;">
+    <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Q2 Scenario Range</div>
+    <table class="scenario-table">
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>NA</th>
+          <th>EMEA</th>
+          <th>APAC</th>
+          <th>SMB Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Worst Case</td>
+          <td>788</td>
+          <td>639</td>
+          <td>153</td>
+          <td>1,427</td>
+        </tr>
+        <tr>
+          <td>Hold-Rate</td>
+          <td>846</td>
+          <td>655</td>
+          <td>130</td>
+          <td>1,501</td>
+        </tr>
+        <tr>
+          <td>Apr Pacing</td>
+          <td>881</td>
+          <td>614</td>
+          <td>119</td>
+          <td>1,495</td>
+        </tr>
+        <tr class="row-best">
+          <td>Best Case</td>
+          <td>979</td>
+          <td>717</td>
+          <td>132</td>
+          <td>1,696</td>
+        </tr>
+        <tr class="row-aop">
+          <td>AOP Target</td>
+          <td>1,052</td>
+          <td>750</td>
+          <td>90</td>
+          <td>1,802</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ ACTIVITIES IN FLIGHT ════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Activities in Flight</div>
+
+  <div class="grid-3">
+
+    <!-- PAID -->
+    <div class="card">
+      <div class="team-card-header">
+        <div>
+          <div class="team-name">Paid</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:1px;">Aman Dayal</div>
+        </div>
+        <div class="team-count">4 items</div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">RSA copy tests + tCPA reset + PMax structural reset</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">NA + EMEA</span>
+            
+            <span class="activity-meta-item activity-sql">+280 SQL</span>
+            
+            <span class="activity-meta-item activity-impact-high">high</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-in-progress">in progress</span>
+          <span class="activity-week">W2 Apr</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">Competitor CA + USA keyword expansion + Bing scale</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">NA</span>
+            
+            <span class="activity-meta-item activity-sql">+25 SQL</span>
+            
+            <span class="activity-meta-item activity-impact-medium">medium</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-in-progress">in progress</span>
+          <span class="activity-week">Apr–May</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">EMEA WW keyword expansion (Bsport, Gymdesk, Mariana Tek)</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">EMEA</span>
+            
+            <span class="activity-meta-item activity-sql">+25 SQL</span>
+            
+            <span class="activity-meta-item activity-impact-medium">medium</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-not-started">not started</span>
+          <span class="activity-week">W1 May</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">AU paid channel expansion (Google AU + Bing AU)</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">APAC</span>
+            
+            <span class="activity-meta-item activity-sql">+10 SQL</span>
+            
+            <span class="activity-meta-item activity-impact-low">low</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-not-started">not started</span>
+          <span class="activity-week">W2 May</span>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- NON-PAID -->
+    <div class="card">
+      <div class="team-card-header">
+        <div>
+          <div class="team-name">Non-Paid</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:1px;">Tanya · Kaeli · Angharad</div>
+        </div>
+        <div class="team-count">5 items</div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">Demand Gen → MCL reclassification</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">NA + EMEA</span>
+            
+            <span class="activity-meta-item activity-sql">metric fix SQL</span>
+            
+            <span class="activity-meta-item activity-impact-high">high</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-in-progress">in progress</span>
+          <span class="activity-week">W2 Apr</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">Email nurture streams + Warmly sequences</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">NA</span>
+            
+            <span class="activity-meta-item activity-sql">+73 SQL</span>
+            
+            <span class="activity-meta-item activity-impact-medium">medium</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-in-progress">in progress</span>
+          <span class="activity-week">W3 Apr</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">FIBO event + post-FIBO webinar</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">EMEA</span>
+            
+            <span class="activity-meta-item activity-sql">+75 SQL</span>
+            
+            <span class="activity-meta-item activity-impact-high">high</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-in-progress">in progress</span>
+          <span class="activity-week">Apr</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">Athletech series + GymLaunch webinar</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">EMEA</span>
+            
+            <span class="activity-meta-item activity-sql">volume lever SQL</span>
+            
+            <span class="activity-meta-item activity-impact-medium">medium</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-in-progress">in progress</span>
+          <span class="activity-week">Apr–May</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">APAC events + partnerships</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">APAC</span>
+            
+            <span class="activity-meta-item activity-sql">+10 SQL</span>
+            
+            <span class="activity-meta-item activity-impact-low">low</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-not-started">not started</span>
+          <span class="activity-week">Apr</span>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- WEB / SEO -->
+    <div class="card">
+      <div class="team-card-header">
+        <div>
+          <div class="team-name">Web / SEO</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:1px;">Ben · Web team</div>
+        </div>
+        <div class="team-count">5 items</div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">5 competitor LPs (MBO, Momence, WL, Zenplanner, Mariana Tek)</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">NA + EMEA</span>
+            
+            <span class="activity-meta-item activity-sql">unlocks Paid CVR SQL</span>
+            
+            <span class="activity-meta-item activity-impact-high">high</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-in-progress">in progress</span>
+          <span class="activity-week">Apr 30</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">7 modality organic pages</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">NA + EMEA</span>
+            
+            <span class="activity-meta-item activity-sql">+25 SQL</span>
+            
+            <span class="activity-meta-item activity-impact-medium">medium</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-in-progress">in progress</span>
+          <span class="activity-week">Apr</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">Homepage redesign + CRO</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">NA</span>
+            
+            <span class="activity-meta-item activity-sql">+73 SQL</span>
+            
+            <span class="activity-meta-item activity-impact-high">high</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-not-started">not started</span>
+          <span class="activity-week">W1 May</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">4 ROI Calculator lead magnets</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">NA</span>
+            
+            <span class="activity-meta-item activity-sql">volume lever SQL</span>
+            
+            <span class="activity-meta-item activity-impact-medium">medium</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-in-progress">in progress</span>
+          <span class="activity-week">Apr</span>
+        </div>
+      </div>
+      
+      <div class="activity-row">
+        <div>
+          <div class="activity-title">Payments webinar (Apr 28)</div>
+          <div class="activity-meta">
+            <span class="activity-meta-item activity-region">NA</span>
+            
+            <span class="activity-meta-item activity-sql">volume lever SQL</span>
+            
+            <span class="activity-meta-item activity-impact-medium">medium</span>
+          </div>
+        </div>
+        <div class="activity-right">
+          
+          <span class="badge badge-in-progress">in progress</span>
+          <span class="activity-week">Apr 28</span>
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  Glofox SMB Demand Gen &nbsp;·&nbsp; Last updated 2026-04-14 &nbsp;·&nbsp; Week 16
+</div>
+
+</body>
+</html>
