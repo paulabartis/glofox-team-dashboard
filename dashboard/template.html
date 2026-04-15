@@ -626,7 +626,7 @@ body {
         {% set sc_rows = [
           ('Live Trajectory',    'Apr 1–11 rate held flat through Q2 (no improvement assumed)', live_trajectory,         false, 'row-live'),
           ('Q2 Current Pacing',  'Apr 1–11 pace + May–Jun improvement assumed',                q2_scenarios.apr_pacing, true,  ''),
-          ('Best Case',          'Key Q2 actions execute on time',                             q2_scenarios.best,       false, 'row-best'),
+          ('Best Case',          'Key Q2 actions deliver ahead of plan',                       q2_scenarios.best,       false, 'row-best'),
           ('AOP Target',         '25% CVR target hit across all',                              q2_scenarios.aop,        false, 'row-aop'),
         ] %}
         {% for label, desc, sc, is_current, extra_class in sc_rows %}
