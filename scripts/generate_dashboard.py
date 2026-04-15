@@ -132,6 +132,7 @@ def build_context(data):
         "regions": regions,
         "april": april,
         "q2_scenarios": q2_scenarios,
+        "april_11d": data.get("april_11d"),
         "activities": data["activities"],
         # helpers available in template
         "fmt": fmt,

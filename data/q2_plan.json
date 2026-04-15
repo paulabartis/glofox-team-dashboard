@@ -40,8 +40,117 @@
     }
   },
   "actuals": {
-    "q2_to_date": { "NA": 0, "EMEA": 0, "APAC": 0 },
-    "april":      { "NA": 0, "EMEA": 0, "APAC": 0, "total": 0 }
+    "q2_to_date": { "NA": 89, "EMEA": 61, "APAC": 9 },
+    "april":      { "NA": 89, "EMEA": 61, "APAC": 9, "total": 159 }
+  },
+  "april_11d": {
+    "source": "Apr 1–11 actuals · GF Q2 Demand Forecast (Salesforce) · pace ×2.73",
+    "pace_factor": 2.727,
+    "regions": {
+      "NA": {
+        "paid": {
+          "label": "Paid",
+          "mar_sql": 178, "mar_cvr": 0.2065,
+          "apr_mql": 859, "apr_sql": 194, "apr_cvr": 0.2258,
+          "aop_sql": 276, "delta": -82,
+          "sub": [
+            { "name": "Gym Management",    "mar_sql": 37, "mar_cvr": 0.1152, "apr_mql": 322, "apr_sql": 68, "apr_cvr": 0.2112, "aop_sql": 102, "delta": -34 },
+            { "name": "Google Competitor", "mar_sql": 50, "mar_cvr": 0.2315, "apr_mql": 215, "apr_sql": 49, "apr_cvr": 0.2279, "aop_sql": 69,  "delta": -20 },
+            { "name": "Google Branded",    "mar_sql": 49, "mar_cvr": 0.3828, "apr_mql": 128, "apr_sql": 30, "apr_cvr": 0.2344, "aop_sql": 41,  "delta": -11 },
+            { "name": "Meta / Awareness",  "mar_sql":  6, "mar_cvr": 0.0750, "apr_mql":  79, "apr_sql": 19, "apr_cvr": 0.2405, "aop_sql": 26,  "delta":  -7 },
+            { "name": "Modality",          "mar_sql": 31, "mar_cvr": 0.3735, "apr_mql":  82, "apr_sql": 19, "apr_cvr": 0.2317, "aop_sql": 27,  "delta":  -8 },
+            { "name": "Bing",              "mar_sql":  4, "mar_cvr": 0.1176, "apr_mql":  33, "apr_sql":  8, "apr_cvr": 0.2424, "aop_sql": 11,  "delta":  -3 }
+          ]
+        },
+        "non_paid": {
+          "label": "Non-Paid (ex-MCL)",
+          "mar_sql": 65, "mar_cvr": 0.2664,
+          "apr_mql": 259, "apr_sql": 49, "apr_cvr": 0.1892,
+          "aop_sql": 92, "delta": -43,
+          "sub": [
+            { "name": "Website + CRO",     "mar_sql": 23, "mar_cvr": 0.1885, "apr_mql": 123, "apr_sql": 16, "apr_cvr": 0.1301, "aop_sql": 46, "delta": -30 },
+            { "name": "Content (Organic)", "mar_sql": 21, "mar_cvr": 0.2471, "apr_mql":  85, "apr_sql": 16, "apr_cvr": 0.1882, "aop_sql": 32, "delta": -16 },
+            { "name": "Referrals / Social","mar_sql": 13, "mar_cvr": 0.4643, "apr_mql":  49, "apr_sql":  8, "apr_cvr": 0.1633, "aop_sql": 11, "delta":  -3 },
+            { "name": "Always On / Email", "mar_sql":  8, "mar_cvr": 0.8889, "apr_mql":   3, "apr_sql":  8, "apr_cvr": null,   "aop_sql":  3, "delta":   5 }
+          ]
+        },
+        "mcl": { "label": "MCL (excl.)", "apr_mql": 169 },
+        "total": {
+          "mar_sql": 246, "mar_cvr": 0.1965,
+          "apr_mql": 1287, "apr_sql": 243, "apr_cvr": 0.1888,
+          "aop_sql": 367, "delta": -124
+        }
+      },
+      "EMEA": {
+        "paid": {
+          "label": "Paid",
+          "mar_sql": 120, "mar_cvr": 0.1869,
+          "apr_mql": 608, "apr_sql": 106, "apr_cvr": 0.1743,
+          "aop_sql": 196, "delta": -90,
+          "sub": [
+            { "name": "Gym Management",    "mar_sql": 41, "mar_cvr": 0.1627, "apr_mql": 210, "apr_sql": 38, "apr_cvr": 0.1810, "aop_sql": 67, "delta": -29 },
+            { "name": "Bing",              "mar_sql": 23, "mar_cvr": 0.1429, "apr_mql": 136, "apr_sql": 25, "apr_cvr": 0.1838, "aop_sql": 44, "delta": -19 },
+            { "name": "Google Branded",    "mar_sql": 55, "mar_cvr": 0.4074, "apr_mql": 115, "apr_sql": 19, "apr_cvr": 0.1652, "aop_sql": 37, "delta": -18 },
+            { "name": "Google Competitor", "mar_sql": 29, "mar_cvr": 0.2736, "apr_mql":  90, "apr_sql": 16, "apr_cvr": 0.1778, "aop_sql": 29, "delta": -13 },
+            { "name": "Modality",          "mar_sql": 12, "mar_cvr": 0.1846, "apr_mql":  55, "apr_sql":  8, "apr_cvr": 0.1455, "aop_sql": 18, "delta": -10 },
+            { "name": "Meta / Awareness",  "mar_sql":  0, "mar_cvr": 0.0000, "apr_mql":   3, "apr_sql":  0, "apr_cvr": 0.0000, "aop_sql":  1, "delta":  -1 }
+          ]
+        },
+        "non_paid": {
+          "label": "Non-Paid (ex-MCL)",
+          "mar_sql": 53, "mar_cvr": 0.2387,
+          "apr_mql": 245, "apr_sql": 60, "apr_cvr": 0.2449,
+          "aop_sql": 66, "delta": -6,
+          "sub": [
+            { "name": "Website + CRO",     "mar_sql": 22, "mar_cvr": 0.2500, "apr_mql":  82, "apr_sql":  8, "apr_cvr": 0.0976, "aop_sql": 27, "delta": -19 },
+            { "name": "Content (Organic)", "mar_sql": 25, "mar_cvr": 0.2155, "apr_mql": 128, "apr_sql": 35, "apr_cvr": 0.2734, "aop_sql": 34, "delta":   1 },
+            { "name": "Referrals / Social","mar_sql":  5, "mar_cvr": 0.2941, "apr_mql":  35, "apr_sql": 16, "apr_cvr": 0.4571, "aop_sql":  5, "delta":  11 },
+            { "name": "Always On / Email", "mar_sql":  1, "mar_cvr": 1.0000, "apr_mql":   0, "apr_sql":  0, "apr_cvr": null,   "aop_sql":  0, "delta":   0 }
+          ]
+        },
+        "mcl": { "label": "MCL (excl.)", "apr_mql": 27 },
+        "total": {
+          "mar_sql": 172, "mar_cvr": 0.1959,
+          "apr_mql": 881, "apr_sql": 166, "apr_cvr": 0.1884,
+          "aop_sql": 262, "delta": -96
+        }
+      },
+      "APAC": {
+        "paid": {
+          "label": "Paid",
+          "mar_sql": 24, "mar_cvr": 0.3582,
+          "apr_mql": 52, "apr_sql": 11, "apr_cvr": 0.2115,
+          "aop_sql": 24, "delta": -13,
+          "sub": [
+            { "name": "Google Branded",   "mar_sql": 19, "mar_cvr": 0.3750, "apr_mql": 38, "apr_sql": 8, "apr_cvr": 0.2105, "aop_sql": 18, "delta": -10 },
+            { "name": "Modality",         "mar_sql":  2, "mar_cvr": 0.1818, "apr_mql":  8, "apr_sql": 3, "apr_cvr": 0.3750, "aop_sql":  4, "delta":  -1 },
+            { "name": "Meta / Awareness", "mar_sql":  0, "mar_cvr": 0.0000, "apr_mql":  5, "apr_sql": 0, "apr_cvr": 0.0000, "aop_sql":  2, "delta":  -2 }
+          ]
+        },
+        "non_paid": {
+          "label": "Non-Paid (ex-MCL)",
+          "mar_sql": 27, "mar_cvr": 0.3253,
+          "apr_mql": 93, "apr_sql": 14, "apr_cvr": 0.1505,
+          "aop_sql": 8, "delta": 6,
+          "sub": [
+            { "name": "Website + CRO",     "mar_sql":  7, "mar_cvr": 0.2692, "apr_mql": 41, "apr_sql": 5, "apr_cvr": 0.1220, "aop_sql": 2, "delta": 3 },
+            { "name": "Content (Organic)", "mar_sql": 19, "mar_cvr": 0.3800, "apr_mql": 46, "apr_sql": 8, "apr_cvr": 0.1739, "aop_sql": 5, "delta": 3 },
+            { "name": "Referrals / Social","mar_sql":  1, "mar_cvr": 0.1429, "apr_mql":  5, "apr_sql": 0, "apr_cvr": 0.0000, "aop_sql": 1, "delta":-1 }
+          ]
+        },
+        "mcl": null,
+        "total": {
+          "mar_sql": 51, "mar_cvr": 0.3400,
+          "apr_mql": 142, "apr_sql": 25, "apr_cvr": 0.1761,
+          "aop_sql": 30, "delta": -5
+        }
+      }
+    },
+    "all_regions": {
+      "mar_sql": 469, "mar_cvr": 0.2057,
+      "apr_mql": 2310, "apr_sql": 434, "apr_cvr": 0.1879,
+      "aop_sql": 659, "delta": -225
+    }
   },
   "cvr_march": {
     "NA":   { "paid": 0.205, "np": 0.266 },

@@ -340,6 +340,112 @@ body {
   </div>
 </div>
 
+<!-- ══ APRIL 11-DAY BREAKDOWN ════════════════════════════════════════════════ -->
+{% if april_11d %}
+<div class="section">
+  <div class="section-label">April Build — 11-Day Pacing &nbsp;·&nbsp; {{ april_11d.source }}</div>
+
+  {% for region_name in ["NA", "EMEA", "APAC"] %}
+  {% set rd = april_11d.regions[region_name] %}
+  <div style="margin-bottom: 16px;">
+    <div style="font-size:12px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">{{ region_name }}</div>
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border);">
+            <th style="text-align:left; padding:10px 14px; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; background:var(--bg-alt);">Channel</th>
+            <th style="text-align:right; padding:10px 10px; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; background:var(--bg-alt);">Mar SQL</th>
+            <th style="text-align:right; padding:10px 10px; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; background:var(--bg-alt);">Mar CVR</th>
+            <th style="text-align:right; padding:10px 10px; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; background:var(--bg-alt);">Apr MQL</th>
+            <th style="text-align:right; padding:10px 10px; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; background:var(--bg-alt);">Apr SQL</th>
+            <th style="text-align:right; padding:10px 10px; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; background:var(--bg-alt);">Apr CVR</th>
+            <th style="text-align:right; padding:10px 10px; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; background:var(--bg-alt);">AOP SQL</th>
+            <th style="text-align:right; padding:10px 14px; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; background:var(--bg-alt);">Δ vs AOP</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for bucket in [rd.paid, rd.non_paid] %}
+          <!-- Channel parent row -->
+          <tr style="border-bottom:1px solid var(--border); background:var(--bg-alt);">
+            <td style="padding:9px 14px; font-size:12px; font-weight:700; color:var(--text);">{{ bucket.label }}</td>
+            <td style="text-align:right; padding:9px 10px; font-size:12px; color:var(--text);">{{ bucket.mar_sql }}</td>
+            <td style="text-align:right; padding:9px 10px; font-size:12px; color:var(--muted);">{{ "%.1f"|format(bucket.mar_cvr * 100) }}%</td>
+            <td style="text-align:right; padding:9px 10px; font-size:12px; color:var(--text);">{{ "{:,}".format(bucket.apr_mql) }}</td>
+            <td style="text-align:right; padding:9px 10px; font-size:12px; font-weight:700; color:var(--text);">{{ bucket.apr_sql }}</td>
+            <td style="text-align:right; padding:9px 10px; font-size:12px; color:var(--muted);">{{ "%.1f"|format(bucket.apr_cvr * 100) }}%</td>
+            <td style="text-align:right; padding:9px 10px; font-size:12px; color:var(--muted);">{{ bucket.aop_sql }}</td>
+            <td style="text-align:right; padding:9px 14px; font-size:12px; font-weight:700; color:{% if bucket.delta >= 0 %}var(--green){% else %}var(--red){% endif %};">{{ "%+d"|format(bucket.delta) }}</td>
+          </tr>
+          <!-- Sub-channel rows -->
+          {% for sub in bucket.sub %}
+          <tr style="border-bottom:1px solid rgba(42,45,62,0.5);">
+            <td style="padding:7px 14px 7px 26px; font-size:12px; color:var(--muted);">{{ sub.name }}</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">{{ sub.mar_sql }}</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">{{ "%.1f"|format(sub.mar_cvr * 100) }}%</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">{{ "{:,}".format(sub.apr_mql) }}</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--text);">{{ sub.apr_sql }}</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">{% if sub.apr_cvr and sub.apr_cvr < 2 %}{{ "%.1f"|format(sub.apr_cvr * 100) }}%{% else %}—{% endif %}</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">{{ sub.aop_sql }}</td>
+            <td style="text-align:right; padding:7px 14px; font-size:12px; color:{% if sub.delta >= 0 %}var(--green){% else %}var(--red){% endif %};">{{ "%+d"|format(sub.delta) }}</td>
+          </tr>
+          {% endfor %}
+          {% endfor %}
+          {% if rd.mcl %}
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:7px 14px; font-size:12px; color:var(--muted); font-style:italic;">{{ rd.mcl.label }}</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">—</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">—</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">{{ rd.mcl.apr_mql }}</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">—</td>
+            <td colspan="3" style="text-align:right; padding:7px 14px; font-size:11px; color:var(--muted);">excluded from SQL plan</td>
+          </tr>
+          {% endif %}
+          <!-- Total row -->
+          <tr style="background:var(--bg-alt);">
+            <td style="padding:10px 14px; font-size:13px; font-weight:700; color:var(--text);">Total</td>
+            <td style="text-align:right; padding:10px 10px; font-size:13px; font-weight:700; color:var(--text);">{{ rd.total.mar_sql }}</td>
+            <td style="text-align:right; padding:10px 10px; font-size:13px; color:var(--muted);">{{ "%.1f"|format(rd.total.mar_cvr * 100) }}%</td>
+            <td style="text-align:right; padding:10px 10px; font-size:13px; font-weight:700; color:var(--text);">{{ "{:,}".format(rd.total.apr_mql) }}</td>
+            <td style="text-align:right; padding:10px 10px; font-size:13px; font-weight:700; color:var(--blue);">{{ rd.total.apr_sql }}</td>
+            <td style="text-align:right; padding:10px 10px; font-size:13px; color:var(--muted);">{{ "%.1f"|format(rd.total.apr_cvr * 100) }}%</td>
+            <td style="text-align:right; padding:10px 10px; font-size:13px; color:var(--muted);">{{ rd.total.aop_sql }}</td>
+            <td style="text-align:right; padding:10px 14px; font-size:13px; font-weight:700; color:{% if rd.total.delta >= 0 %}var(--green){% else %}var(--red){% endif %};">{{ "%+d"|format(rd.total.delta) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endfor %}
+
+  <!-- All Regions total -->
+  <div class="card card-alt" style="display:flex; align-items:center; justify-content:space-between; padding:14px 20px;">
+    <div style="font-size:13px; font-weight:700; color:var(--text);">All Regions Total</div>
+    <div style="display:flex; gap:32px; align-items:center;">
+      <div style="text-align:center;">
+        <div style="font-size:11px; color:var(--muted); margin-bottom:2px;">Mar SQL</div>
+        <div style="font-size:18px; font-weight:700; color:var(--text);">{{ april_11d.all_regions.mar_sql }}</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; color:var(--muted); margin-bottom:2px;">Apr Proj SQL</div>
+        <div style="font-size:18px; font-weight:700; color:var(--blue);">{{ april_11d.all_regions.apr_sql }}</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; color:var(--muted); margin-bottom:2px;">Apr CVR</div>
+        <div style="font-size:18px; font-weight:700; color:var(--text);">{{ "%.1f"|format(april_11d.all_regions.apr_cvr * 100) }}%</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; color:var(--muted); margin-bottom:2px;">AOP SQL</div>
+        <div style="font-size:18px; font-weight:700; color:var(--muted);">{{ april_11d.all_regions.aop_sql }}</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; color:var(--muted); margin-bottom:2px;">Δ vs AOP</div>
+        <div style="font-size:18px; font-weight:700; color:var(--red);">{{ "%+d"|format(april_11d.all_regions.delta) }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 <!-- ══ Q2 PACING ════════════════════════════════════════════════════════════ -->
 <div class="section">
   <div class="section-label">Q2 Pacing &nbsp;·&nbsp; {{ weeks_elapsed }} of 13 weeks elapsed</div>
