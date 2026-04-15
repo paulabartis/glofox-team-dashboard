@@ -192,7 +192,8 @@ body {
 .activity-impact-high   { color: var(--text); font-weight: 600; }
 .activity-impact-medium { color: var(--muted); }
 .activity-impact-low    { color: var(--muted); opacity: 0.7; }
-.activity-sql { color: var(--blue); font-weight: 600; }
+.activity-bucket { color: var(--blue); font-weight: 500; }
+.activity-kpi    { color: var(--purple); }
 .activity-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 .activity-week { font-size: 11px; color: var(--muted); white-space: nowrap; }
 
@@ -573,10 +574,9 @@ body {
         <div>
           <div class="activity-title">{{ a.title }}</div>
           <div class="activity-meta">
+            {% if a.bucket %}<span class="activity-meta-item activity-bucket">{{ a.bucket }}</span>{% endif %}
             <span class="activity-meta-item activity-region">{{ a.region }}</span>
-            {% if a.sql_impact %}
-            <span class="activity-meta-item activity-sql">{{ a.sql_impact }} SQL</span>
-            {% endif %}
+            {% if a.kpi %}<span class="activity-meta-item activity-kpi">{{ a.kpi }}</span>{% endif %}
             <span class="activity-meta-item activity-impact-{{ a.impact }}">{{ a.impact }}</span>
           </div>
         </div>
@@ -603,10 +603,9 @@ body {
         <div>
           <div class="activity-title">{{ a.title }}</div>
           <div class="activity-meta">
+            {% if a.bucket %}<span class="activity-meta-item activity-bucket">{{ a.bucket }}</span>{% endif %}
             <span class="activity-meta-item activity-region">{{ a.region }}</span>
-            {% if a.sql_impact %}
-            <span class="activity-meta-item activity-sql">{{ a.sql_impact }} SQL</span>
-            {% endif %}
+            {% if a.kpi %}<span class="activity-meta-item activity-kpi">{{ a.kpi }}</span>{% endif %}
             <span class="activity-meta-item activity-impact-{{ a.impact }}">{{ a.impact }}</span>
           </div>
         </div>
@@ -633,10 +632,9 @@ body {
         <div>
           <div class="activity-title">{{ a.title }}</div>
           <div class="activity-meta">
+            {% if a.bucket %}<span class="activity-meta-item activity-bucket">{{ a.bucket }}</span>{% endif %}
             <span class="activity-meta-item activity-region">{{ a.region }}</span>
-            {% if a.sql_impact %}
-            <span class="activity-meta-item activity-sql">{{ a.sql_impact }} SQL</span>
-            {% endif %}
+            {% if a.kpi %}<span class="activity-meta-item activity-kpi">{{ a.kpi }}</span>{% endif %}
             <span class="activity-meta-item activity-impact-{{ a.impact }}">{{ a.impact }}</span>
           </div>
         </div>

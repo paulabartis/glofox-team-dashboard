@@ -159,150 +159,42 @@
   },
   "activities": {
     "paid": [
-      {
-        "title": "RSA copy tests + tCPA reset + PMax structural reset",
-        "status": "in progress",
-        "impact": "high",
-        "region": "NA + EMEA",
-        "owner": "Aman",
-        "target_week": "W2 Apr",
-        "sql_impact": "+280",
-        "notes": "LP quality dep on Ben/Web — competitor LPs due Apr 30"
-      },
-      {
-        "title": "Competitor CA + USA keyword expansion + Bing scale",
-        "status": "in progress",
-        "impact": "medium",
-        "region": "NA",
-        "owner": "Aman",
-        "target_week": "Apr–May",
-        "sql_impact": "+25",
-        "notes": "Bing at 24% CVR — most reliable volume lever"
-      },
-      {
-        "title": "EMEA WW keyword expansion (Bsport, Gymdesk, Mariana Tek)",
-        "status": "not started",
-        "impact": "medium",
-        "region": "EMEA",
-        "owner": "Aman",
-        "target_week": "W1 May",
-        "sql_impact": "+25",
-        "notes": "Bing WW LP fix required before scaling"
-      },
-      {
-        "title": "AU paid channel expansion (Google AU + Bing AU)",
-        "status": "not started",
-        "impact": "low",
-        "region": "APAC",
-        "owner": "Aman / Angharad",
-        "target_week": "W2 May",
-        "sql_impact": "+10",
-        "notes": "TBC with Angharad — APAC Q2 paid plan"
-      }
+      { "title": "Search NA — Competitor RSA audit + MindBody copy test", "bucket": "Search", "status": "in progress", "impact": "high", "region": "NA", "owner": "Aman", "target_week": "April", "kpi": "CVR" },
+      { "title": "Search NA — tCPA reset + Canada keyword expansion", "bucket": "Search", "status": "in progress", "impact": "high", "region": "NA", "owner": "Aman", "target_week": "April–May", "kpi": "MQL" },
+      { "title": "Search NA — Competitor top tier keyword refinement", "bucket": "Search", "status": "in progress", "impact": "medium", "region": "NA", "owner": "Aman", "target_week": "April", "kpi": "MQL" },
+      { "title": "Search NA — Gym Management segmentation + Broad refinement", "bucket": "Search", "status": "not started", "impact": "medium", "region": "NA", "owner": "Aman", "target_week": "May", "kpi": "CVR" },
+      { "title": "Search EMEA — Competitor WW RSA audit + tCPA adjustment", "bucket": "Search", "status": "in progress", "impact": "high", "region": "EMEA", "owner": "Aman", "target_week": "April", "kpi": "CVR" },
+      { "title": "Search EMEA — MindBody + Momence copy tests", "bucket": "Search", "status": "in progress", "impact": "high", "region": "EMEA", "owner": "Aman", "target_week": "April", "kpi": "CVR" },
+      { "title": "Search EMEA — WW keyword expansion (Mariana Tek, Bsport, Gymdesk)", "bucket": "Search", "status": "not started", "impact": "medium", "region": "EMEA", "owner": "Aman", "target_week": "May", "kpi": "MQL" },
+      { "title": "Social NA — Prospecting + modality + competitor retargeting", "bucket": "Social", "status": "in progress", "impact": "medium", "region": "NA", "owner": "Aman", "target_week": "April", "kpi": "MQL" },
+      { "title": "DG — PMax structural reset + sequenced creative test", "bucket": "DG / pMax", "status": "not started", "impact": "medium", "region": "NA", "owner": "Aman", "target_week": "May", "kpi": "MQL" },
+      { "title": "CRO — Form segment dropdown test + Q2 promo pop-up", "bucket": "Website + CRO", "status": "in progress", "impact": "medium", "region": "ALL", "owner": "Aman / Ben", "target_week": "April–June", "kpi": "CVR" }
     ],
     "non_paid": [
-      {
-        "title": "Demand Gen → MCL reclassification",
-        "status": "in progress",
-        "impact": "high",
-        "region": "NA + EMEA",
-        "owner": "Tanya / Kaeli",
-        "target_week": "W2 Apr",
-        "sql_impact": "metric fix",
-        "notes": "440 NA + 42 EMEA leads reclassified; NP CVR cleans immediately"
-      },
-      {
-        "title": "Email nurture streams + Warmly sequences",
-        "status": "in progress",
-        "impact": "medium",
-        "region": "NA",
-        "owner": "Tanya / Kaeli",
-        "target_week": "W3 Apr",
-        "sql_impact": "+73",
-        "notes": "Awareness→Consideration→Decision nurture; MCL pool → Q3 recycling"
-      },
-      {
-        "title": "FIBO event + post-FIBO webinar",
-        "status": "in progress",
-        "impact": "high",
-        "region": "EMEA",
-        "owner": "Tanya / Angharad",
-        "target_week": "Apr",
-        "sql_impact": "+75",
-        "notes": "Highest-confidence EMEA volume lever — must execute in April"
-      },
-      {
-        "title": "Athletech series + GymLaunch webinar",
-        "status": "in progress",
-        "impact": "medium",
-        "region": "EMEA",
-        "owner": "Tanya / Angharad",
-        "target_week": "Apr–May",
-        "sql_impact": "volume lever",
-        "notes": "Apr email + May report; Pilates Journal sponsorship"
-      },
-      {
-        "title": "APAC events + partnerships",
-        "status": "not started",
-        "impact": "low",
-        "region": "APAC",
-        "owner": "Angharad",
-        "target_week": "Apr",
-        "sql_impact": "+10",
-        "notes": "TBC with Angharad — APAC Q2 NP plan"
-      }
+      { "title": "Always On nurtures — Awareness / Consideration / Decision / Dormant streams", "bucket": "Always On / Email", "status": "in progress", "impact": "high", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April", "kpi": "MQL" },
+      { "title": "Warmly — high intent + Bombora + pre-MQL outreach sequences", "bucket": "DemandGen", "status": "in progress", "impact": "high", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April", "kpi": "MQL" },
+      { "title": "Reddit Lens", "bucket": "DemandGen", "status": "in progress", "impact": "medium", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April", "kpi": "Traffic" },
+      { "title": "KO campaigns — Wellness Living + Zen Planner", "bucket": "DemandGen", "status": "in progress", "impact": "medium", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April–May", "kpi": "MQL" },
+      { "title": "Pilates Toolkit (LP needed)", "bucket": "DemandGen", "status": "in progress", "impact": "medium", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April", "kpi": "Traffic" },
+      { "title": "Payments Webinar Apr 28 + Payment Link Deminar May 7", "bucket": "DemandGen", "status": "in progress", "impact": "medium", "region": "NA + EMEA", "owner": "Tanya", "target_week": "Apr 28", "kpi": "MQL" },
+      { "title": "FIBO Event (blog + emails) + Post-FIBO Webinar", "bucket": "Referrals / Events", "status": "in progress", "impact": "high", "region": "EMEA", "owner": "Tanya", "target_week": "April", "kpi": "MQL" },
+      { "title": "GymLaunch webinar + lead magnet activation", "bucket": "DemandGen", "status": "in progress", "impact": "medium", "region": "EMEA", "owner": "Tanya", "target_week": "April", "kpi": "MQL" },
+      { "title": "Athletech April numbers + May dedicated email + report", "bucket": "DemandGen", "status": "not started", "impact": "medium", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April–May", "kpi": "Traffic" },
+      { "title": "APAC — New functional landing page + SDR Loom videos", "bucket": "Website + CRO", "status": "in progress", "impact": "medium", "region": "APAC", "owner": "Angharad", "target_week": "April", "kpi": "MQL" },
+      { "title": "APAC — Studio Growth email sequence + list enrichment", "bucket": "Always On / Email", "status": "not started", "impact": "low", "region": "APAC", "owner": "Angharad", "target_week": "May", "kpi": "SQL" }
     ],
     "web_seo": [
-      {
-        "title": "5 competitor LPs (MBO, Momence, WL, Zenplanner, Mariana Tek)",
-        "status": "in progress",
-        "impact": "high",
-        "region": "NA + EMEA",
-        "owner": "Ben / Web",
-        "target_week": "Apr 30",
-        "sql_impact": "unlocks Paid CVR",
-        "notes": "Critical dependency for +280 SQL Paid CVR improvement"
-      },
-      {
-        "title": "7 modality organic pages",
-        "status": "in progress",
-        "impact": "medium",
-        "region": "NA + EMEA",
-        "owner": "Ben / Web",
-        "target_week": "Apr",
-        "sql_impact": "+25",
-        "notes": "Pilates, Yoga, Wellness Studio, Boxing — support paid + NP"
-      },
-      {
-        "title": "Homepage redesign + CRO",
-        "status": "not started",
-        "impact": "high",
-        "region": "NA",
-        "owner": "Ben / Web",
-        "target_week": "W1 May",
-        "sql_impact": "+73",
-        "notes": "Biggest single NP lever; requires form tests Apr first"
-      },
-      {
-        "title": "4 ROI Calculator lead magnets",
-        "status": "in progress",
-        "impact": "medium",
-        "region": "NA",
-        "owner": "Ben / Web",
-        "target_week": "Apr",
-        "sql_impact": "volume lever",
-        "notes": "High-intent NP MQL volume growth"
-      },
-      {
-        "title": "Payments webinar (Apr 28)",
-        "status": "in progress",
-        "impact": "medium",
-        "region": "NA",
-        "owner": "Kaeli / Ben",
-        "target_week": "Apr 28",
-        "sql_impact": "volume lever",
-        "notes": "KO list-building tie-in Apr–May"
-      }
+      { "title": "Competitor LPs — MBO, Momence, WL, Zenplanner, Mariana Tek (rewrites)", "bucket": "SEO / AEO", "status": "in progress", "impact": "high", "region": "NA + EMEA", "owner": "Ben / NBA", "target_week": "April", "kpi": "CVR" },
+      { "title": "Modality pages — Pilates, Yoga, Wellness Studio, PT Studio (in build)", "bucket": "SEO / AEO", "status": "in progress", "impact": "high", "region": "NA + EMEA", "owner": "Ben", "target_week": "April", "kpi": "MQL" },
+      { "title": "Modality pages — Boxing, Martial Arts, Spin, CrossFit (design queue)", "bucket": "SEO / AEO", "status": "not started", "impact": "medium", "region": "NA + EMEA", "owner": "Ben", "target_week": "May", "kpi": "MQL" },
+      { "title": "NBA pages + AEO content (not yet briefed)", "bucket": "SEO / AEO", "status": "not started", "impact": "medium", "region": "NA + EMEA", "owner": "Ben / NBA", "target_week": "April", "kpi": "MQL" },
+      { "title": "Feature pages x10 — AI, Memberships, Check-in, Bookings, CBA…", "bucket": "SEO / AEO", "status": "not started", "impact": "medium", "region": "NA + EMEA", "owner": "Ben", "target_week": "May", "kpi": "MQL" },
+      { "title": "ROI Calculators x6 (3 ABC + 3 GF) — final updates this week", "bucket": "BAU / Support", "status": "in progress", "impact": "high", "region": "ALL", "owner": "Ben / Henrique", "target_week": "April", "kpi": "MQL" },
+      { "title": "GymLaunch custom LP (building frame — assets from Nick)", "bucket": "BAU / Support", "status": "in progress", "impact": "medium", "region": "EMEA", "owner": "Ben", "target_week": "April", "kpi": "MQL" },
+      { "title": "Get a Quote Paid LP", "bucket": "BAU / Support", "status": "in progress", "impact": "medium", "region": "ALL", "owner": "Ben", "target_week": "April", "kpi": "CVR" },
+      { "title": "Homepage redesign + CRO (new template + components)", "bucket": "BAU / Support", "status": "in progress", "impact": "high", "region": "ALL", "owner": "Ben", "target_week": "May", "kpi": "CVR" },
+      { "title": "[PAID] Form test — shortened modality dropdown (launching this week)", "bucket": "CRO / Experimentation", "status": "in progress", "impact": "high", "region": "ALL", "owner": "Ben / Markus", "target_week": "April", "kpi": "CVR" },
+      { "title": "[ORG] Pricing page AB tests (variant 2 + 3)", "bucket": "CRO / Experimentation", "status": "not started", "impact": "high", "region": "ALL", "owner": "Ben", "target_week": "May–June", "kpi": "CVR" }
     ]
   }
 }
