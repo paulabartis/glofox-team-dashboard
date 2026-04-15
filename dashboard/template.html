@@ -605,54 +605,57 @@ body {
   <div class="card card-alt" style="margin-top:12px;">
     <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px;">
       <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em;">Q2 Scenario Range</div>
-      <div style="font-size:11px; color:var(--muted);">% = actuals ÷ scenario target &nbsp;·&nbsp; <strong style="color:var(--text);">{{ total_q2 }} SQL</strong> delivered to date</div>
+      <div style="font-size:11px; color:var(--muted);">Projected Q2 SQL per scenario &nbsp;·&nbsp; <strong style="color:var(--text);">{{ total_q2 }} SQL</strong> delivered to date</div>
     </div>
     <table class="scenario-table">
       <thead>
         <tr>
-          <th>Scenario</th>
-          <th>NA <span style="font-weight:400; opacity:0.55;">({{ na_q2 }})</span></th>
-          <th>EMEA <span style="font-weight:400; opacity:0.55;">({{ emea_q2 }})</span></th>
-          <th>APAC <span style="font-weight:400; opacity:0.55;">({{ apac_q2 }})</span></th>
-          <th>Total <span style="font-weight:400; opacity:0.55;">({{ total_q2 }})</span></th>
+          <th style="width:26%;">Scenario</th>
+          <th>NA</th>
+          <th>EMEA</th>
+          <th>APAC</th>
+          <th>Total</th>
           <th>% Delivered</th>
         </tr>
       </thead>
       <tbody>
         {% set sc_rows = [
-          ('Worst Case',  q2_scenarios.worst,     false, ''),
-          ('Hold-Rate',   q2_scenarios.hold_rate,  false, ''),
-          ('Apr Pacing',  q2_scenarios.apr_pacing, true,  ''),
-          ('Best Case',   q2_scenarios.best,       false, 'row-best'),
-          ('AOP Target',  q2_scenarios.aop,        false, 'row-aop'),
+          ('Worst Case',  'Q1 CVR rates hold into Q2',      q2_scenarios.worst,     false, ''),
+          ('Hold-Rate',   'March MQL vol. × March CVR',     q2_scenarios.hold_rate,  false, ''),
+          ('Apr Pacing',  'Apr 1–11 actuals paced to Q2',   q2_scenarios.apr_pacing, true,  ''),
+          ('Best Case',   'Key Q2 actions execute on time', q2_scenarios.best,       false, 'row-best'),
+          ('AOP Target',  '25% CVR target hit across all',  q2_scenarios.aop,        false, 'row-aop'),
         ] %}
-        {% for label, sc, is_current, extra_class in sc_rows %}
+        {% for label, desc, sc, is_current, extra_class in sc_rows %}
         {% set pct_total = (total_q2 / sc.smb * 100) | round(0) | int %}
         <tr class="{{ 'row-current' if is_current else extra_class }}">
           <td>
-            {{ label }}
-            {% if is_current %}<span style="font-size:9px; background:rgba(79,142,247,0.25); color:var(--blue); padding:2px 7px; border-radius:3px; margin-left:6px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Current</span>{% endif %}
+            <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+              <span>{{ label }}</span>
+              {% if is_current %}<span style="font-size:9px; background:rgba(79,142,247,0.25); color:var(--blue); padding:2px 7px; border-radius:3px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Current</span>{% endif %}
+            </div>
+            <div style="font-size:11px; font-style:italic; color:var(--muted); margin-top:2px; font-weight:400;">{{ desc }}</div>
           </td>
           <td>
-            {{ "{:,}".format(sc.NA) }}
-            <div style="font-size:10px; color:var(--muted); margin-top:1px;">{{ "%.0f"|format(na_q2 / sc.NA * 100) }}%</div>
+            <div>{{ "{:,}".format(sc.NA) }}</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ na_q2 }} deliv. &nbsp;·&nbsp; {{ "%.0f"|format(na_q2 / sc.NA * 100) }}%</div>
           </td>
           <td>
-            {{ "{:,}".format(sc.EMEA) }}
-            <div style="font-size:10px; color:var(--muted); margin-top:1px;">{{ "%.0f"|format(emea_q2 / sc.EMEA * 100) }}%</div>
+            <div>{{ "{:,}".format(sc.EMEA) }}</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ emea_q2 }} deliv. &nbsp;·&nbsp; {{ "%.0f"|format(emea_q2 / sc.EMEA * 100) }}%</div>
           </td>
           <td>
-            {{ "{:,}".format(sc.APAC) }}
-            <div style="font-size:10px; color:var(--muted); margin-top:1px;">{{ "%.0f"|format(apac_q2 / sc.APAC * 100) }}%</div>
+            <div>{{ "{:,}".format(sc.APAC) }}</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ apac_q2 }} deliv. &nbsp;·&nbsp; {{ "%.0f"|format(apac_q2 / sc.APAC * 100) }}%</div>
           </td>
           <td>
-            {{ "{:,}".format(sc.smb) }}
-            <div style="font-size:10px; color:var(--muted); margin-top:1px;">{{ pct_total }}%</div>
+            <div>{{ "{:,}".format(sc.smb) }}</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ total_q2 }} deliv. &nbsp;·&nbsp; {{ pct_total }}%</div>
           </td>
           <td>
             <div style="display:flex; align-items:center; gap:7px;">
               <div style="flex:1; height:5px; background:var(--border); border-radius:3px; overflow:hidden; min-width:50px;">
-                <div style="height:100%; width:{{ [pct_total, 100] | min }}%; border-radius:3px; background:{{ 'var(--blue)' if is_current else ('var(--green)' if pct_total >= 100 else ('var(--amber)' if pct_total >= 50 else 'var(--muted)')) }};"></div>
+                <div style="height:100%; width:{{ [pct_total, 100] | min }}%; border-radius:3px; background:{{ 'var(--blue)' if is_current else ('var(--green)' if extra_class == 'row-best' else ('var(--blue)' if extra_class == 'row-aop' else 'var(--muted)')) }};"></div>
               </div>
               <span style="font-size:11px; font-weight:700; min-width:28px; text-align:right;">{{ pct_total }}%</span>
             </div>
