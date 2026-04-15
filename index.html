@@ -290,6 +290,28 @@ body {
 
 /* ── SQL impact chip ── */
 .activity-sql-impact { color: var(--green); font-weight: 700; }
+
+/* ── Scenario current row ── */
+.row-current { background: rgba(79,142,247,0.07); }
+.row-current td { color: var(--blue) !important; font-weight: 600; }
+.row-current td:first-child { font-weight: 700; }
+
+/* ── KPI filter (uses same shape as .filter-btn, different active color) ── */
+.filter-kpi {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 14px;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.filter-kpi:hover { color: var(--text); border-color: var(--muted); }
+.filter-kpi.active { background: rgba(155,89,182,0.15); color: var(--purple); border-color: var(--purple); }
+.filter-divider { width: 1px; background: var(--border); align-self: stretch; margin: 4px 4px; }
 </style>
 </head>
 <body>
@@ -401,6 +423,16 @@ body {
         &nbsp;·&nbsp;
         NP CVR <span>26.6%</span>
       </div>
+
+      
+      
+      
+      
+      <div style="font-size:11px; color:var(--muted); margin-top:10px; display:flex; gap:14px; border-top:1px solid var(--border); padding-top:10px;">
+        <span>Paid <strong style="color:var(--green);">↑ +16</strong> vs Mar</span>
+        <span>NP <strong style="color:var(--red);">↓ -16</strong> vs Mar</span>
+      </div>
+      
     </div>
     
     <div class="card">
@@ -431,6 +463,16 @@ body {
         &nbsp;·&nbsp;
         NP CVR <span>23.9%</span>
       </div>
+
+      
+      
+      
+      
+      <div style="font-size:11px; color:var(--muted); margin-top:10px; display:flex; gap:14px; border-top:1px solid var(--border); padding-top:10px;">
+        <span>Paid <strong style="color:var(--red);">↓ -14</strong> vs Mar</span>
+        <span>NP <strong style="color:var(--green);">↑ +7</strong> vs Mar</span>
+      </div>
+      
     </div>
     
     <div class="card">
@@ -461,6 +503,16 @@ body {
         &nbsp;·&nbsp;
         NP CVR <span>32.5%</span>
       </div>
+
+      
+      
+      
+      
+      <div style="font-size:11px; color:var(--muted); margin-top:10px; display:flex; gap:14px; border-top:1px solid var(--border); padding-top:10px;">
+        <span>Paid <strong style="color:var(--red);">↓ -13</strong> vs Mar</span>
+        <span>NP <strong style="color:var(--red);">↓ -13</strong> vs Mar</span>
+      </div>
+      
     </div>
     
   </div>
@@ -1124,54 +1176,189 @@ body {
   </div>
 
   <!-- Q2 scenario range -->
+  
+  
+  
+  
   <div class="card card-alt" style="margin-top:12px;">
-    <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Q2 Scenario Range</div>
+    <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px;">
+      <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em;">Q2 Scenario Range</div>
+      <div style="font-size:11px; color:var(--muted);">% = actuals ÷ scenario target &nbsp;·&nbsp; <strong style="color:var(--text);">159 SQL</strong> delivered to date</div>
+    </div>
     <table class="scenario-table">
       <thead>
         <tr>
           <th>Scenario</th>
-          <th>NA</th>
-          <th>EMEA</th>
-          <th>APAC</th>
-          <th>SMB Total</th>
+          <th>NA <span style="font-weight:400; opacity:0.55;">(89)</span></th>
+          <th>EMEA <span style="font-weight:400; opacity:0.55;">(61)</span></th>
+          <th>APAC <span style="font-weight:400; opacity:0.55;">(9)</span></th>
+          <th>Total <span style="font-weight:400; opacity:0.55;">(159)</span></th>
+          <th>% Delivered</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Worst Case</td>
-          <td>788</td>
-          <td>639</td>
-          <td>153</td>
-          <td>1,427</td>
+        
+        
+        
+        <tr class="">
+          <td>
+            Worst Case
+            
+          </td>
+          <td>
+            788
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">11%</div>
+          </td>
+          <td>
+            639
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">10%</div>
+          </td>
+          <td>
+            153
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">6%</div>
+          </td>
+          <td>
+            1,427
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">11%</div>
+          </td>
+          <td>
+            <div style="display:flex; align-items:center; gap:7px;">
+              <div style="flex:1; height:5px; background:var(--border); border-radius:3px; overflow:hidden; min-width:50px;">
+                <div style="height:100%; width:11%; border-radius:3px; background:var(--muted);"></div>
+              </div>
+              <span style="font-size:11px; font-weight:700; min-width:28px; text-align:right;">11%</span>
+            </div>
+          </td>
         </tr>
-        <tr>
-          <td>Hold-Rate</td>
-          <td>846</td>
-          <td>655</td>
-          <td>130</td>
-          <td>1,501</td>
+        
+        
+        <tr class="">
+          <td>
+            Hold-Rate
+            
+          </td>
+          <td>
+            846
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">11%</div>
+          </td>
+          <td>
+            655
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">9%</div>
+          </td>
+          <td>
+            130
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">7%</div>
+          </td>
+          <td>
+            1,501
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">11%</div>
+          </td>
+          <td>
+            <div style="display:flex; align-items:center; gap:7px;">
+              <div style="flex:1; height:5px; background:var(--border); border-radius:3px; overflow:hidden; min-width:50px;">
+                <div style="height:100%; width:11%; border-radius:3px; background:var(--muted);"></div>
+              </div>
+              <span style="font-size:11px; font-weight:700; min-width:28px; text-align:right;">11%</span>
+            </div>
+          </td>
         </tr>
-        <tr>
-          <td>Apr Pacing</td>
-          <td>881</td>
-          <td>614</td>
-          <td>119</td>
-          <td>1,495</td>
+        
+        
+        <tr class="row-current">
+          <td>
+            Apr Pacing
+            <span style="font-size:9px; background:rgba(79,142,247,0.25); color:var(--blue); padding:2px 7px; border-radius:3px; margin-left:6px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Current</span>
+          </td>
+          <td>
+            881
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">10%</div>
+          </td>
+          <td>
+            614
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">10%</div>
+          </td>
+          <td>
+            119
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">8%</div>
+          </td>
+          <td>
+            1,495
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">11%</div>
+          </td>
+          <td>
+            <div style="display:flex; align-items:center; gap:7px;">
+              <div style="flex:1; height:5px; background:var(--border); border-radius:3px; overflow:hidden; min-width:50px;">
+                <div style="height:100%; width:11%; border-radius:3px; background:var(--blue);"></div>
+              </div>
+              <span style="font-size:11px; font-weight:700; min-width:28px; text-align:right;">11%</span>
+            </div>
+          </td>
         </tr>
+        
+        
         <tr class="row-best">
-          <td>Best Case</td>
-          <td>979</td>
-          <td>717</td>
-          <td>132</td>
-          <td>1,696</td>
+          <td>
+            Best Case
+            
+          </td>
+          <td>
+            979
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">9%</div>
+          </td>
+          <td>
+            717
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">9%</div>
+          </td>
+          <td>
+            132
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">7%</div>
+          </td>
+          <td>
+            1,696
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">9%</div>
+          </td>
+          <td>
+            <div style="display:flex; align-items:center; gap:7px;">
+              <div style="flex:1; height:5px; background:var(--border); border-radius:3px; overflow:hidden; min-width:50px;">
+                <div style="height:100%; width:9%; border-radius:3px; background:var(--muted);"></div>
+              </div>
+              <span style="font-size:11px; font-weight:700; min-width:28px; text-align:right;">9%</span>
+            </div>
+          </td>
         </tr>
+        
+        
         <tr class="row-aop">
-          <td>AOP Target</td>
-          <td>1,052</td>
-          <td>750</td>
-          <td>90</td>
-          <td>1,802</td>
+          <td>
+            AOP Target
+            
+          </td>
+          <td>
+            1,052
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">8%</div>
+          </td>
+          <td>
+            750
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">8%</div>
+          </td>
+          <td>
+            90
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">10%</div>
+          </td>
+          <td>
+            1,802
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">9%</div>
+          </td>
+          <td>
+            <div style="display:flex; align-items:center; gap:7px;">
+              <div style="flex:1; height:5px; background:var(--border); border-radius:3px; overflow:hidden; min-width:50px;">
+                <div style="height:100%; width:9%; border-radius:3px; background:var(--muted);"></div>
+              </div>
+              <span style="font-size:11px; font-weight:700; min-width:28px; text-align:right;">9%</span>
+            </div>
+          </td>
         </tr>
+        
       </tbody>
     </table>
   </div>
@@ -1189,6 +1376,11 @@ body {
     <button class="filter-btn" data-month="april">April</button>
     <button class="filter-btn" data-month="may">May</button>
     <button class="filter-btn" data-month="june">June</button>
+    <span class="filter-divider"></span>
+    <span class="filter-label">Impact type</span>
+    <button class="filter-kpi active" data-kpi="all">All</button>
+    <button class="filter-kpi" data-kpi="cvr">CVR</button>
+    <button class="filter-kpi" data-kpi="volume">Volume</button>
   </div>
 
   <div class="grid-3">
@@ -1203,7 +1395,7 @@ body {
         <div class="team-count" id="count-paid">10 items</div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="cvr">
         <div>
           <div class="activity-title">Search NA — Competitor RSA audit + MindBody copy test</div>
           <div class="activity-meta">
@@ -1221,7 +1413,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april–may">
+      <div class="activity-row" data-month="april–may" data-kpi="mql">
         <div>
           <div class="activity-title">Search NA — tCPA reset + Canada keyword expansion</div>
           <div class="activity-meta">
@@ -1239,7 +1431,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">Search NA — Competitor top tier keyword refinement</div>
           <div class="activity-meta">
@@ -1257,7 +1449,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="may">
+      <div class="activity-row" data-month="may" data-kpi="cvr">
         <div>
           <div class="activity-title">Search NA — Gym Management segmentation + Broad refinement</div>
           <div class="activity-meta">
@@ -1275,7 +1467,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="cvr">
         <div>
           <div class="activity-title">Search EMEA — Competitor WW RSA audit + tCPA adjustment</div>
           <div class="activity-meta">
@@ -1293,7 +1485,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="cvr">
         <div>
           <div class="activity-title">Search EMEA — MindBody + Momence copy tests</div>
           <div class="activity-meta">
@@ -1311,7 +1503,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="may">
+      <div class="activity-row" data-month="may" data-kpi="mql">
         <div>
           <div class="activity-title">Search EMEA — WW keyword expansion (Mariana Tek, Bsport, Gymdesk)</div>
           <div class="activity-meta">
@@ -1329,7 +1521,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">Social NA — Prospecting + modality + competitor retargeting</div>
           <div class="activity-meta">
@@ -1347,7 +1539,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="may">
+      <div class="activity-row" data-month="may" data-kpi="mql">
         <div>
           <div class="activity-title">DG — PMax structural reset + sequenced creative test</div>
           <div class="activity-meta">
@@ -1365,7 +1557,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april–june">
+      <div class="activity-row" data-month="april–june" data-kpi="cvr">
         <div>
           <div class="activity-title">CRO — Form segment dropdown test + Q2 promo pop-up</div>
           <div class="activity-meta">
@@ -1395,7 +1587,7 @@ body {
         <div class="team-count" id="count-np">11 items</div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">Always On nurtures — Awareness / Consideration / Decision / Dormant streams</div>
           <div class="activity-meta">
@@ -1413,7 +1605,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">Warmly — high intent + Bombora + pre-MQL outreach sequences</div>
           <div class="activity-meta">
@@ -1431,7 +1623,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="traffic">
         <div>
           <div class="activity-title">Reddit Lens</div>
           <div class="activity-meta">
@@ -1449,7 +1641,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april–may">
+      <div class="activity-row" data-month="april–may" data-kpi="mql">
         <div>
           <div class="activity-title">KO campaigns — Wellness Living + Zen Planner</div>
           <div class="activity-meta">
@@ -1467,7 +1659,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="traffic">
         <div>
           <div class="activity-title">Pilates Toolkit (LP needed)</div>
           <div class="activity-meta">
@@ -1485,7 +1677,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="apr 28">
+      <div class="activity-row" data-month="apr 28" data-kpi="mql">
         <div>
           <div class="activity-title">Payments Webinar Apr 28 + Payment Link Deminar May 7</div>
           <div class="activity-meta">
@@ -1503,7 +1695,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">FIBO Event (blog + emails) + Post-FIBO Webinar</div>
           <div class="activity-meta">
@@ -1521,7 +1713,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">GymLaunch webinar + lead magnet activation</div>
           <div class="activity-meta">
@@ -1539,7 +1731,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april–may">
+      <div class="activity-row" data-month="april–may" data-kpi="traffic">
         <div>
           <div class="activity-title">Athletech April numbers + May dedicated email + report</div>
           <div class="activity-meta">
@@ -1557,7 +1749,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">APAC — New functional landing page + SDR Loom videos</div>
           <div class="activity-meta">
@@ -1575,7 +1767,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="may">
+      <div class="activity-row" data-month="may" data-kpi="sql">
         <div>
           <div class="activity-title">APAC — Studio Growth email sequence + list enrichment</div>
           <div class="activity-meta">
@@ -1605,7 +1797,7 @@ body {
         <div class="team-count" id="count-web">11 items</div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="cvr">
         <div>
           <div class="activity-title">Competitor LPs — MBO, Momence, WL, Zenplanner, Mariana Tek (rewrites)</div>
           <div class="activity-meta">
@@ -1623,7 +1815,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">Modality pages — Pilates, Yoga, Wellness Studio, PT Studio (in build)</div>
           <div class="activity-meta">
@@ -1641,7 +1833,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="may">
+      <div class="activity-row" data-month="may" data-kpi="mql">
         <div>
           <div class="activity-title">Modality pages — Boxing, Martial Arts, Spin, CrossFit (design queue)</div>
           <div class="activity-meta">
@@ -1659,7 +1851,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">NBA pages + AEO content (not yet briefed)</div>
           <div class="activity-meta">
@@ -1677,7 +1869,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="may">
+      <div class="activity-row" data-month="may" data-kpi="mql">
         <div>
           <div class="activity-title">Feature pages x10 — AI, Memberships, Check-in, Bookings, CBA…</div>
           <div class="activity-meta">
@@ -1695,7 +1887,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">ROI Calculators x6 (3 ABC + 3 GF) — final updates this week</div>
           <div class="activity-meta">
@@ -1713,7 +1905,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="mql">
         <div>
           <div class="activity-title">GymLaunch custom LP (building frame — assets from Nick)</div>
           <div class="activity-meta">
@@ -1731,7 +1923,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="cvr">
         <div>
           <div class="activity-title">Get a Quote Paid LP</div>
           <div class="activity-meta">
@@ -1749,7 +1941,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="may">
+      <div class="activity-row" data-month="may" data-kpi="cvr">
         <div>
           <div class="activity-title">Homepage redesign + CRO (new template + components)</div>
           <div class="activity-meta">
@@ -1767,7 +1959,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="april">
+      <div class="activity-row" data-month="april" data-kpi="cvr">
         <div>
           <div class="activity-title">[PAID] Form test — shortened modality dropdown (launching this week)</div>
           <div class="activity-meta">
@@ -1785,7 +1977,7 @@ body {
         </div>
       </div>
       
-      <div class="activity-row" data-month="may–june">
+      <div class="activity-row" data-month="may–june" data-kpi="cvr">
         <div>
           <div class="activity-title">[ORG] Pricing page AB tests (variant 2 + 3)</div>
           <div class="activity-meta">
@@ -1827,26 +2019,46 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-// Month filter
+// Dual filter: Month + Impact type (both must match)
+let activeMonth = 'all';
+let activeKpi   = 'all';
+
+function applyFilters() {
+  document.querySelectorAll('.activity-row').forEach(row => {
+    const tw  = (row.dataset.month || '').toLowerCase();
+    const kpi = (row.dataset.kpi   || '').toLowerCase();
+    const monthOk = activeMonth === 'all'
+      || tw.includes(activeMonth)
+      || (activeMonth === 'april' && tw.includes('apr'));
+    const kpiOk = activeKpi === 'all'
+      || (activeKpi === 'cvr'    && kpi === 'cvr')
+      || (activeKpi === 'volume' && (kpi === 'mql' || kpi === 'traffic' || kpi === 'sql'));
+    row.style.display = (monthOk && kpiOk) ? '' : 'none';
+  });
+  ['count-paid', 'count-np', 'count-web'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const card = el.closest('.card');
+    const visible = [...card.querySelectorAll('.activity-row')].filter(r => r.style.display !== 'none').length;
+    el.textContent = visible + ' items';
+  });
+}
+
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const month = btn.dataset.month;
-    document.querySelectorAll('.activity-row').forEach(row => {
-      if (month === 'all') { row.style.display = ''; return; }
-      const tw = (row.dataset.month || '').toLowerCase();
-      const matches = tw.includes(month) || (month === 'april' && tw.includes('apr'));
-      row.style.display = matches ? '' : 'none';
-    });
-    // Update visible counts per column
-    [['count-paid', '.card:nth-child(1)'], ['count-np', '.card:nth-child(2)'], ['count-web', '.card:nth-child(3)']].forEach(([id, sel]) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const card = el.closest('.card');
-      const visible = [...card.querySelectorAll('.activity-row')].filter(r => r.style.display !== 'none').length;
-      el.textContent = visible + ' items';
-    });
+    activeMonth = btn.dataset.month;
+    applyFilters();
+  });
+});
+
+document.querySelectorAll('.filter-kpi').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-kpi').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeKpi = btn.dataset.kpi;
+    applyFilters();
   });
 });
 </script>

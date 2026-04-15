@@ -290,6 +290,28 @@ body {
 
 /* ── SQL impact chip ── */
 .activity-sql-impact { color: var(--green); font-weight: 700; }
+
+/* ── Scenario current row ── */
+.row-current { background: rgba(79,142,247,0.07); }
+.row-current td { color: var(--blue) !important; font-weight: 600; }
+.row-current td:first-child { font-weight: 700; }
+
+/* ── KPI filter (uses same shape as .filter-btn, different active color) ── */
+.filter-kpi {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 14px;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.filter-kpi:hover { color: var(--text); border-color: var(--muted); }
+.filter-kpi.active { background: rgba(155,89,182,0.15); color: var(--purple); border-color: var(--purple); }
+.filter-divider { width: 1px; background: var(--border); align-self: stretch; margin: 4px 4px; }
 </style>
 </head>
 <body>
@@ -401,6 +423,16 @@ body {
         &nbsp;·&nbsp;
         NP CVR <span>{{ r.cvr_np_display }}</span>
       </div>
+
+      {% if april_11d %}
+      {% set d = april_11d.regions[r.name] %}
+      {% set paid_delta = d.paid.apr_sql - d.paid.mar_sql %}
+      {% set np_delta = d.non_paid.apr_sql - d.non_paid.mar_sql %}
+      <div style="font-size:11px; color:var(--muted); margin-top:10px; display:flex; gap:14px; border-top:1px solid var(--border); padding-top:10px;">
+        <span>Paid <strong style="color:{{ 'var(--green)' if paid_delta >= 0 else 'var(--red)' }};">{{ '↑' if paid_delta >= 0 else '↓' }} {{ '%+d' | format(paid_delta) }}</strong> vs Mar</span>
+        <span>NP <strong style="color:{{ 'var(--green)' if np_delta >= 0 else 'var(--red)' }};">{{ '↑' if np_delta >= 0 else '↓' }} {{ '%+d' | format(np_delta) }}</strong> vs Mar</span>
+      </div>
+      {% endif %}
     </div>
     {% endfor %}
   </div>
@@ -566,54 +598,67 @@ body {
   </div>
 
   <!-- Q2 scenario range -->
+  {% set na_q2   = regions[0].actuals_q2 %}
+  {% set emea_q2 = regions[1].actuals_q2 %}
+  {% set apac_q2 = regions[2].actuals_q2 %}
+  {% set total_q2 = na_q2 + emea_q2 + apac_q2 %}
   <div class="card card-alt" style="margin-top:12px;">
-    <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Q2 Scenario Range</div>
+    <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px;">
+      <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em;">Q2 Scenario Range</div>
+      <div style="font-size:11px; color:var(--muted);">% = actuals ÷ scenario target &nbsp;·&nbsp; <strong style="color:var(--text);">{{ total_q2 }} SQL</strong> delivered to date</div>
+    </div>
     <table class="scenario-table">
       <thead>
         <tr>
           <th>Scenario</th>
-          <th>NA</th>
-          <th>EMEA</th>
-          <th>APAC</th>
-          <th>SMB Total</th>
+          <th>NA <span style="font-weight:400; opacity:0.55;">({{ na_q2 }})</span></th>
+          <th>EMEA <span style="font-weight:400; opacity:0.55;">({{ emea_q2 }})</span></th>
+          <th>APAC <span style="font-weight:400; opacity:0.55;">({{ apac_q2 }})</span></th>
+          <th>Total <span style="font-weight:400; opacity:0.55;">({{ total_q2 }})</span></th>
+          <th>% Delivered</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Worst Case</td>
-          <td>{{ "{:,}".format(q2_scenarios.worst.NA) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.worst.EMEA) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.worst.APAC) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.worst.smb) }}</td>
+        {% set sc_rows = [
+          ('Worst Case',  q2_scenarios.worst,     false, ''),
+          ('Hold-Rate',   q2_scenarios.hold_rate,  false, ''),
+          ('Apr Pacing',  q2_scenarios.apr_pacing, true,  ''),
+          ('Best Case',   q2_scenarios.best,       false, 'row-best'),
+          ('AOP Target',  q2_scenarios.aop,        false, 'row-aop'),
+        ] %}
+        {% for label, sc, is_current, extra_class in sc_rows %}
+        {% set pct_total = (total_q2 / sc.smb * 100) | round(0) | int %}
+        <tr class="{{ 'row-current' if is_current else extra_class }}">
+          <td>
+            {{ label }}
+            {% if is_current %}<span style="font-size:9px; background:rgba(79,142,247,0.25); color:var(--blue); padding:2px 7px; border-radius:3px; margin-left:6px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Current</span>{% endif %}
+          </td>
+          <td>
+            {{ "{:,}".format(sc.NA) }}
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">{{ "%.0f"|format(na_q2 / sc.NA * 100) }}%</div>
+          </td>
+          <td>
+            {{ "{:,}".format(sc.EMEA) }}
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">{{ "%.0f"|format(emea_q2 / sc.EMEA * 100) }}%</div>
+          </td>
+          <td>
+            {{ "{:,}".format(sc.APAC) }}
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">{{ "%.0f"|format(apac_q2 / sc.APAC * 100) }}%</div>
+          </td>
+          <td>
+            {{ "{:,}".format(sc.smb) }}
+            <div style="font-size:10px; color:var(--muted); margin-top:1px;">{{ pct_total }}%</div>
+          </td>
+          <td>
+            <div style="display:flex; align-items:center; gap:7px;">
+              <div style="flex:1; height:5px; background:var(--border); border-radius:3px; overflow:hidden; min-width:50px;">
+                <div style="height:100%; width:{{ [pct_total, 100] | min }}%; border-radius:3px; background:{{ 'var(--blue)' if is_current else ('var(--green)' if pct_total >= 100 else ('var(--amber)' if pct_total >= 50 else 'var(--muted)')) }};"></div>
+              </div>
+              <span style="font-size:11px; font-weight:700; min-width:28px; text-align:right;">{{ pct_total }}%</span>
+            </div>
+          </td>
         </tr>
-        <tr>
-          <td>Hold-Rate</td>
-          <td>{{ "{:,}".format(q2_scenarios.hold_rate.NA) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.hold_rate.EMEA) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.hold_rate.APAC) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.hold_rate.smb) }}</td>
-        </tr>
-        <tr>
-          <td>Apr Pacing</td>
-          <td>{{ "{:,}".format(q2_scenarios.apr_pacing.NA) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.apr_pacing.EMEA) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.apr_pacing.APAC) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.apr_pacing.smb) }}</td>
-        </tr>
-        <tr class="row-best">
-          <td>Best Case</td>
-          <td>{{ "{:,}".format(q2_scenarios.best.NA) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.best.EMEA) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.best.APAC) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.best.smb) }}</td>
-        </tr>
-        <tr class="row-aop">
-          <td>AOP Target</td>
-          <td>{{ "{:,}".format(q2_scenarios.aop.NA) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.aop.EMEA) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.aop.APAC) }}</td>
-          <td>{{ "{:,}".format(q2_scenarios.aop.smb) }}</td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
@@ -631,6 +676,11 @@ body {
     <button class="filter-btn" data-month="april">April</button>
     <button class="filter-btn" data-month="may">May</button>
     <button class="filter-btn" data-month="june">June</button>
+    <span class="filter-divider"></span>
+    <span class="filter-label">Impact type</span>
+    <button class="filter-kpi active" data-kpi="all">All</button>
+    <button class="filter-kpi" data-kpi="cvr">CVR</button>
+    <button class="filter-kpi" data-kpi="volume">Volume</button>
   </div>
 
   <div class="grid-3">
@@ -645,7 +695,7 @@ body {
         <div class="team-count" id="count-paid">{{ activities.paid | length }} items</div>
       </div>
       {% for a in activities.paid %}
-      <div class="activity-row" data-month="{{ a.target_week | lower }}">
+      <div class="activity-row" data-month="{{ a.target_week | lower }}" data-kpi="{{ a.kpi | lower }}">
         <div>
           <div class="activity-title">{{ a.title }}</div>
           <div class="activity-meta">
@@ -675,7 +725,7 @@ body {
         <div class="team-count" id="count-np">{{ activities.non_paid | length }} items</div>
       </div>
       {% for a in activities.non_paid %}
-      <div class="activity-row" data-month="{{ a.target_week | lower }}">
+      <div class="activity-row" data-month="{{ a.target_week | lower }}" data-kpi="{{ a.kpi | lower }}">
         <div>
           <div class="activity-title">{{ a.title }}</div>
           <div class="activity-meta">
@@ -705,7 +755,7 @@ body {
         <div class="team-count" id="count-web">{{ activities.web_seo | length }} items</div>
       </div>
       {% for a in activities.web_seo %}
-      <div class="activity-row" data-month="{{ a.target_week | lower }}">
+      <div class="activity-row" data-month="{{ a.target_week | lower }}" data-kpi="{{ a.kpi | lower }}">
         <div>
           <div class="activity-title">{{ a.title }}</div>
           <div class="activity-meta">
@@ -747,26 +797,46 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-// Month filter
+// Dual filter: Month + Impact type (both must match)
+let activeMonth = 'all';
+let activeKpi   = 'all';
+
+function applyFilters() {
+  document.querySelectorAll('.activity-row').forEach(row => {
+    const tw  = (row.dataset.month || '').toLowerCase();
+    const kpi = (row.dataset.kpi   || '').toLowerCase();
+    const monthOk = activeMonth === 'all'
+      || tw.includes(activeMonth)
+      || (activeMonth === 'april' && tw.includes('apr'));
+    const kpiOk = activeKpi === 'all'
+      || (activeKpi === 'cvr'    && kpi === 'cvr')
+      || (activeKpi === 'volume' && (kpi === 'mql' || kpi === 'traffic' || kpi === 'sql'));
+    row.style.display = (monthOk && kpiOk) ? '' : 'none';
+  });
+  ['count-paid', 'count-np', 'count-web'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const card = el.closest('.card');
+    const visible = [...card.querySelectorAll('.activity-row')].filter(r => r.style.display !== 'none').length;
+    el.textContent = visible + ' items';
+  });
+}
+
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const month = btn.dataset.month;
-    document.querySelectorAll('.activity-row').forEach(row => {
-      if (month === 'all') { row.style.display = ''; return; }
-      const tw = (row.dataset.month || '').toLowerCase();
-      const matches = tw.includes(month) || (month === 'april' && tw.includes('apr'));
-      row.style.display = matches ? '' : 'none';
-    });
-    // Update visible counts per column
-    [['count-paid', '.card:nth-child(1)'], ['count-np', '.card:nth-child(2)'], ['count-web', '.card:nth-child(3)']].forEach(([id, sel]) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const card = el.closest('.card');
-      const visible = [...card.querySelectorAll('.activity-row')].filter(r => r.style.display !== 'none').length;
-      el.textContent = visible + ' items';
-    });
+    activeMonth = btn.dataset.month;
+    applyFilters();
+  });
+});
+
+document.querySelectorAll('.filter-kpi').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-kpi').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeKpi = btn.dataset.kpi;
+    applyFilters();
   });
 });
 </script>
