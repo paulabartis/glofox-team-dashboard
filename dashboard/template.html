@@ -610,12 +610,11 @@ body {
     <table class="scenario-table">
       <thead>
         <tr>
-          <th style="width:26%;">Scenario</th>
+          <th style="width:28%;">Scenario</th>
           <th>NA</th>
           <th>EMEA</th>
           <th>APAC</th>
           <th>Total</th>
-          <th>% Delivered</th>
         </tr>
       </thead>
       <tbody>
@@ -627,7 +626,6 @@ body {
           ('AOP Target',  '25% CVR target hit across all',  q2_scenarios.aop,        false, 'row-aop'),
         ] %}
         {% for label, desc, sc, is_current, extra_class in sc_rows %}
-        {% set pct_total = (total_q2 / sc.smb * 100) | round(0) | int %}
         <tr class="{{ 'row-current' if is_current else extra_class }}">
           <td>
             <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
@@ -637,28 +635,20 @@ body {
             <div style="font-size:11px; font-style:italic; color:var(--muted); margin-top:2px; font-weight:400;">{{ desc }}</div>
           </td>
           <td>
-            <div>{{ "{:,}".format(sc.NA) }}</div>
-            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ na_q2 }} deliv. &nbsp;·&nbsp; {{ "%.0f"|format(na_q2 / sc.NA * 100) }}%</div>
+            {{ "{:,}".format(sc.NA) }}
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ "%.1f"|format(sc.NA / q2_scenarios.aop.NA * 100) }}% of target</div>
           </td>
           <td>
-            <div>{{ "{:,}".format(sc.EMEA) }}</div>
-            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ emea_q2 }} deliv. &nbsp;·&nbsp; {{ "%.0f"|format(emea_q2 / sc.EMEA * 100) }}%</div>
+            {{ "{:,}".format(sc.EMEA) }}
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ "%.1f"|format(sc.EMEA / q2_scenarios.aop.EMEA * 100) }}% of target</div>
           </td>
           <td>
-            <div>{{ "{:,}".format(sc.APAC) }}</div>
-            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ apac_q2 }} deliv. &nbsp;·&nbsp; {{ "%.0f"|format(apac_q2 / sc.APAC * 100) }}%</div>
+            {{ "{:,}".format(sc.APAC) }}
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ "%.1f"|format(sc.APAC / q2_scenarios.aop.APAC * 100) }}% of target</div>
           </td>
           <td>
-            <div>{{ "{:,}".format(sc.smb) }}</div>
-            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ total_q2 }} deliv. &nbsp;·&nbsp; {{ pct_total }}%</div>
-          </td>
-          <td>
-            <div style="display:flex; align-items:center; gap:7px;">
-              <div style="flex:1; height:5px; background:var(--border); border-radius:3px; overflow:hidden; min-width:50px;">
-                <div style="height:100%; width:{{ [pct_total, 100] | min }}%; border-radius:3px; background:{{ 'var(--blue)' if is_current else ('var(--green)' if extra_class == 'row-best' else ('var(--blue)' if extra_class == 'row-aop' else 'var(--muted)')) }};"></div>
-              </div>
-              <span style="font-size:11px; font-weight:700; min-width:28px; text-align:right;">{{ pct_total }}%</span>
-            </div>
+            {{ "{:,}".format(sc.smb) }}
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">{{ "%.1f"|format(sc.smb / q2_scenarios.aop.smb * 100) }}% of target</div>
           </td>
         </tr>
         {% endfor %}
