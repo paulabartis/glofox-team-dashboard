@@ -397,31 +397,6 @@ body {
     </div>
   </div>
 
-  <!-- CVR trend alert -->
-  {% if april_11d and april_11d.cvr_trend %}
-  {% set ct = april_11d.cvr_trend %}
-  {% set any_drop = ct.NA.apr < ct.NA.mar or ct.EMEA.apr < ct.EMEA.mar or ct.APAC.apr < ct.APAC.mar %}
-  {% if any_drop %}
-  <div style="background:rgba(231,76,60,0.08); border:1px solid rgba(231,76,60,0.3); border-radius:8px; padding:12px 16px; margin-bottom:12px; display:flex; align-items:flex-start; gap:10px;">
-    <span style="font-size:16px; line-height:1;">⚠️</span>
-    <div>
-      <div style="font-size:12px; font-weight:700; color:var(--red); margin-bottom:4px;">CVR declining vs March</div>
-      <div style="font-size:12px; color:var(--muted); line-height:1.6;">
-        {% for region_name, label in [('NA','NA'), ('EMEA','EMEA'), ('APAC','APAC')] %}
-        {% set r = ct[region_name] %}
-        {% set delta = ((r.apr - r.mar) * 100) | round(1) %}
-        <span style="margin-right:18px;">
-          <strong style="color:var(--text);">{{ label }}</strong>
-          {{ "%.1f"|format(r.mar * 100) }}% → <strong style="color:{% if r.apr < r.mar %}var(--red){% else %}var(--green){% endif %};">{{ "%.1f"|format(r.apr * 100) }}%</strong>
-          <span style="color:{% if delta < 0 %}var(--red){% else %}var(--green){% endif %};">({% if delta > 0 %}+{% endif %}{{ delta }}pp)</span>
-        </span>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-  {% endif %}
-  {% endif %}
-
   <!-- Pacing progress bar -->
   <div class="card" style="margin-bottom:12px; padding:14px 20px;">
     {% set pacing_pct_val = (april.current_pacing_total / april.aop_total * 100) | round(1) %}
@@ -464,6 +439,10 @@ body {
       </div>
 
       <div class="april-cvr">
+        {% if april_11d and april_11d.cvr_trend and april_11d.cvr_trend[r.name] %}
+        Total CVR <span>{{ "%.1f"|format(april_11d.cvr_trend[r.name].mar * 100) }}%</span>
+        &nbsp;·&nbsp;
+        {% endif %}
         Paid CVR <span>{{ r.cvr_paid_display }}</span>
         &nbsp;·&nbsp;
         NP CVR <span>{{ r.cvr_np_display }}</span>
