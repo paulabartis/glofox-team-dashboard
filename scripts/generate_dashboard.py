@@ -122,6 +122,21 @@ def build_context(data):
     # ── Q2 scenarios ──
     q2_scenarios = data["targets"]["q2_scenarios"]
 
+    # ── Live Q2 trajectory (pure Apr 1–11 actuals × 91 days, no improvement assumed) ──
+    apr_raw = data["actuals"]["april"]
+    q2_days = 91  # Apr(30) + May(31) + Jun(30)
+    apr_days = 11
+
+    def _pace_q2(raw_sql):
+        return round(raw_sql * q2_days / apr_days) if raw_sql else 0
+
+    live_trajectory = {
+        "NA":   _pace_q2(apr_raw.get("NA",   0)),
+        "EMEA": _pace_q2(apr_raw.get("EMEA", 0)),
+        "APAC": _pace_q2(apr_raw.get("APAC", 0)),
+    }
+    live_trajectory["smb"] = live_trajectory["NA"] + live_trajectory["EMEA"] + live_trajectory["APAC"]
+
     return {
         "meta": data["meta"],
         "last_updated": last_updated,
@@ -132,6 +147,7 @@ def build_context(data):
         "regions": regions,
         "april": april,
         "q2_scenarios": q2_scenarios,
+        "live_trajectory": live_trajectory,
         "april_11d": data.get("april_11d"),
         "activities": data["activities"],
         # helpers available in template

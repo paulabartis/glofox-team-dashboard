@@ -296,6 +296,11 @@ body {
 .row-current td { color: var(--blue) !important; font-weight: 600; }
 .row-current td:first-child { font-weight: 700; }
 
+/* ── Scenario live-trajectory row ── */
+.row-live { background: rgba(243,156,18,0.07); }
+.row-live td { color: var(--amber) !important; font-weight: 600; }
+.row-live td:first-child { font-weight: 700; }
+
 /* ── KPI filter (uses same shape as .filter-btn, different active color) ── */
 .filter-kpi {
   background: var(--bg-alt);
@@ -1250,13 +1255,39 @@ body {
           </td>
         </tr>
         
+        <tr class="row-live">
+          <td>
+            <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+              <span>Live Trajectory</span>
+              
+            </div>
+            <div style="font-size:11px; font-style:italic; color:var(--muted); margin-top:2px; font-weight:400;">Apr 1–11 rate held flat through Q2 (no improvement assumed)</div>
+          </td>
+          <td>
+            736
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">70.0% of target</div>
+          </td>
+          <td>
+            505
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">67.3% of target</div>
+          </td>
+          <td>
+            74
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">82.2% of target</div>
+          </td>
+          <td>
+            1,315
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">73.0% of target</div>
+          </td>
+        </tr>
+        
         <tr class="row-current">
           <td>
             <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
               <span>Apr Pacing</span>
               <span style="font-size:9px; background:rgba(79,142,247,0.25); color:var(--blue); padding:2px 7px; border-radius:3px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Current</span>
             </div>
-            <div style="font-size:11px; font-style:italic; color:var(--muted); margin-top:2px; font-weight:400;">Apr 1–11 actuals paced to Q2</div>
+            <div style="font-size:11px; font-style:italic; color:var(--muted); margin-top:2px; font-weight:400;">Apr 1–11 pace + May–Jun improvement assumed</div>
           </td>
           <td>
             881

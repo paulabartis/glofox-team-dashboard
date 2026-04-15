@@ -296,6 +296,11 @@ body {
 .row-current td { color: var(--blue) !important; font-weight: 600; }
 .row-current td:first-child { font-weight: 700; }
 
+/* ── Scenario live-trajectory row ── */
+.row-live { background: rgba(243,156,18,0.07); }
+.row-live td { color: var(--amber) !important; font-weight: 600; }
+.row-live td:first-child { font-weight: 700; }
+
 /* ── KPI filter (uses same shape as .filter-btn, different active color) ── */
 .filter-kpi {
   background: var(--bg-alt);
@@ -619,11 +624,12 @@ body {
       </thead>
       <tbody>
         {% set sc_rows = [
-          ('Worst Case',  'Q1 CVR rates hold into Q2',      q2_scenarios.worst,     false, ''),
-          ('Hold-Rate',   'March MQL vol. × March CVR',     q2_scenarios.hold_rate,  false, ''),
-          ('Apr Pacing',  'Apr 1–11 actuals paced to Q2',   q2_scenarios.apr_pacing, true,  ''),
-          ('Best Case',   'Key Q2 actions execute on time', q2_scenarios.best,       false, 'row-best'),
-          ('AOP Target',  '25% CVR target hit across all',  q2_scenarios.aop,        false, 'row-aop'),
+          ('Worst Case',       'Q1 CVR rates hold into Q2',                   q2_scenarios.worst,     false, ''),
+          ('Hold-Rate',        'March MQL vol. × March CVR',                  q2_scenarios.hold_rate,  false, ''),
+          ('Live Trajectory',  'Apr 1–11 rate held flat through Q2 (no improvement assumed)', live_trajectory, false, 'row-live'),
+          ('Apr Pacing',       'Apr 1–11 pace + May–Jun improvement assumed', q2_scenarios.apr_pacing, true,  ''),
+          ('Best Case',        'Key Q2 actions execute on time',              q2_scenarios.best,       false, 'row-best'),
+          ('AOP Target',       '25% CVR target hit across all',               q2_scenarios.aop,        false, 'row-aop'),
         ] %}
         {% for label, desc, sc, is_current, extra_class in sc_rows %}
         <tr class="{{ 'row-current' if is_current else extra_class }}">
