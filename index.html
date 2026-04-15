@@ -234,6 +234,62 @@ body {
 .text-purple { color: var(--purple); }
 .text-muted  { color: var(--muted); }
 .fw-700 { font-weight: 700; }
+
+/* ── Tab navigation ── */
+.tab-nav-bar {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+.tab-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+}
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 20px;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+  font-family: inherit;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── Month filter ── */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.filter-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 4px; }
+.filter-btn {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 14px;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.filter-btn:hover { color: var(--text); border-color: var(--muted); }
+.filter-btn.active { background: rgba(79,142,247,0.15); color: var(--blue); border-color: var(--blue); }
+
+/* ── SQL impact chip ── */
+.activity-sql-impact { color: var(--green); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -252,7 +308,16 @@ body {
   </div>
 </div>
 
+<!-- ══ TAB NAV ══════════════════════════════════════════════════════════════ -->
+<div class="tab-nav-bar">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="roadmap">Roadmap</button>
+  </div>
+</div>
+
 <div class="container">
+<div id="tab-overview" class="tab-content active">
 
 <!-- ══ APRIL PACING OVERVIEW ════════════════════════════════════════════════ -->
 <div class="section">
@@ -569,7 +634,7 @@ body {
             <td style="padding:7px 14px; font-size:12px; color:var(--muted); font-style:italic;">MCL (excl.)</td>
             <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">—</td>
             <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">—</td>
-            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">169</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">146</td>
             <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">—</td>
             <td colspan="3" style="text-align:right; padding:7px 14px; font-size:11px; color:var(--muted);">excluded from SQL plan</td>
           </tr>
@@ -752,7 +817,7 @@ body {
             <td style="padding:7px 14px; font-size:12px; color:var(--muted); font-style:italic;">MCL (excl.)</td>
             <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">—</td>
             <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">—</td>
-            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">27</td>
+            <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">16</td>
             <td style="text-align:right; padding:7px 10px; font-size:12px; color:var(--muted);">—</td>
             <td colspan="3" style="text-align:right; padding:7px 14px; font-size:11px; color:var(--muted);">excluded from SQL plan</td>
           </tr>
@@ -1112,9 +1177,19 @@ body {
   </div>
 </div>
 
-<!-- ══ ACTIVITIES IN FLIGHT ════════════════════════════════════════════════ -->
+</div><!-- /tab-overview -->
+
+<!-- ══ ROADMAP TAB ══════════════════════════════════════════════════════════ -->
+<div id="tab-roadmap" class="tab-content">
 <div class="section">
-  <div class="section-label">Activities in Flight</div>
+
+  <div class="filter-bar">
+    <span class="filter-label">Month</span>
+    <button class="filter-btn active" data-month="all">All</button>
+    <button class="filter-btn" data-month="april">April</button>
+    <button class="filter-btn" data-month="may">May</button>
+    <button class="filter-btn" data-month="june">June</button>
+  </div>
 
   <div class="grid-3">
 
@@ -1125,16 +1200,17 @@ body {
           <div class="team-name">Paid</div>
           <div style="font-size:11px; color:var(--muted); margin-top:1px;">Aman Dayal</div>
         </div>
-        <div class="team-count">10 items</div>
+        <div class="team-count" id="count-paid">10 items</div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Search NA — Competitor RSA audit + MindBody copy test</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Search</span>
             <span class="activity-meta-item activity-region">NA</span>
             <span class="activity-meta-item activity-kpi">CVR</span>
+            <span class="activity-meta-item activity-sql-impact">+174 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1145,13 +1221,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april–may">
         <div>
           <div class="activity-title">Search NA — tCPA reset + Canada keyword expansion</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Search</span>
             <span class="activity-meta-item activity-region">NA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+174 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1162,13 +1239,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Search NA — Competitor top tier keyword refinement</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Search</span>
             <span class="activity-meta-item activity-region">NA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1179,13 +1257,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="may">
         <div>
           <div class="activity-title">Search NA — Gym Management segmentation + Broad refinement</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Search</span>
             <span class="activity-meta-item activity-region">NA</span>
             <span class="activity-meta-item activity-kpi">CVR</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1196,13 +1275,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Search EMEA — Competitor WW RSA audit + tCPA adjustment</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Search</span>
             <span class="activity-meta-item activity-region">EMEA</span>
             <span class="activity-meta-item activity-kpi">CVR</span>
+            <span class="activity-meta-item activity-sql-impact">+106 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1213,13 +1293,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Search EMEA — MindBody + Momence copy tests</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Search</span>
             <span class="activity-meta-item activity-region">EMEA</span>
             <span class="activity-meta-item activity-kpi">CVR</span>
+            <span class="activity-meta-item activity-sql-impact">+106 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1230,13 +1311,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="may">
         <div>
           <div class="activity-title">Search EMEA — WW keyword expansion (Mariana Tek, Bsport, Gymdesk)</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Search</span>
             <span class="activity-meta-item activity-region">EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1247,13 +1329,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Social NA — Prospecting + modality + competitor retargeting</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Social</span>
             <span class="activity-meta-item activity-region">NA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+174 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1264,13 +1347,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="may">
         <div>
           <div class="activity-title">DG — PMax structural reset + sequenced creative test</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">DG / pMax</span>
             <span class="activity-meta-item activity-region">NA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+174 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1281,13 +1365,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april–june">
         <div>
           <div class="activity-title">CRO — Form segment dropdown test + Q2 promo pop-up</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Website + CRO</span>
             <span class="activity-meta-item activity-region">ALL</span>
             <span class="activity-meta-item activity-kpi">CVR</span>
+            <span class="activity-meta-item activity-sql-impact">+73 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1307,16 +1392,17 @@ body {
           <div class="team-name">Non-Paid</div>
           <div style="font-size:11px; color:var(--muted); margin-top:1px;">Tanya · Kaeli · Angharad</div>
         </div>
-        <div class="team-count">11 items</div>
+        <div class="team-count" id="count-np">11 items</div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Always On nurtures — Awareness / Consideration / Decision / Dormant streams</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Always On / Email</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+73 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1327,13 +1413,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Warmly — high intent + Bombora + pre-MQL outreach sequences</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">DemandGen</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+73 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1344,13 +1431,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Reddit Lens</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">DemandGen</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">Traffic</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1361,13 +1449,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april–may">
         <div>
           <div class="activity-title">KO campaigns — Wellness Living + Zen Planner</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">DemandGen</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+73 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1378,13 +1467,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Pilates Toolkit (LP needed)</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">DemandGen</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">Traffic</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1395,13 +1485,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="apr 28">
         <div>
           <div class="activity-title">Payments Webinar Apr 28 + Payment Link Deminar May 7</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">DemandGen</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1412,13 +1503,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">FIBO Event (blog + emails) + Post-FIBO Webinar</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Referrals / Events</span>
             <span class="activity-meta-item activity-region">EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+75 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1429,13 +1521,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">GymLaunch webinar + lead magnet activation</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">DemandGen</span>
             <span class="activity-meta-item activity-region">EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+75 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1446,13 +1539,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april–may">
         <div>
           <div class="activity-title">Athletech April numbers + May dedicated email + report</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">DemandGen</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">Traffic</span>
+            <span class="activity-meta-item activity-sql-impact">+75 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1463,13 +1557,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">APAC — New functional landing page + SDR Loom videos</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Website + CRO</span>
             <span class="activity-meta-item activity-region">APAC</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+10 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1480,13 +1575,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="may">
         <div>
           <div class="activity-title">APAC — Studio Growth email sequence + list enrichment</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">Always On / Email</span>
             <span class="activity-meta-item activity-region">APAC</span>
             <span class="activity-meta-item activity-kpi">SQL</span>
+            <span class="activity-meta-item activity-sql-impact">+10 SQL</span>
             <span class="activity-meta-item activity-impact-low">low</span>
           </div>
         </div>
@@ -1506,16 +1602,17 @@ body {
           <div class="team-name">Web / SEO</div>
           <div style="font-size:11px; color:var(--muted); margin-top:1px;">Ben · Web team</div>
         </div>
-        <div class="team-count">11 items</div>
+        <div class="team-count" id="count-web">11 items</div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Competitor LPs — MBO, Momence, WL, Zenplanner, Mariana Tek (rewrites)</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">SEO / AEO</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">CVR</span>
+            <span class="activity-meta-item activity-sql-impact">+280 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1526,13 +1623,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Modality pages — Pilates, Yoga, Wellness Studio, PT Studio (in build)</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">SEO / AEO</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1543,13 +1641,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="may">
         <div>
           <div class="activity-title">Modality pages — Boxing, Martial Arts, Spin, CrossFit (design queue)</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">SEO / AEO</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1560,13 +1659,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">NBA pages + AEO content (not yet briefed)</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">SEO / AEO</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1577,13 +1677,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="may">
         <div>
           <div class="activity-title">Feature pages x10 — AI, Memberships, Check-in, Bookings, CBA…</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">SEO / AEO</span>
             <span class="activity-meta-item activity-region">NA + EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1594,13 +1695,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">ROI Calculators x6 (3 ABC + 3 GF) — final updates this week</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">BAU / Support</span>
             <span class="activity-meta-item activity-region">ALL</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+25 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1611,13 +1713,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">GymLaunch custom LP (building frame — assets from Nick)</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">BAU / Support</span>
             <span class="activity-meta-item activity-region">EMEA</span>
             <span class="activity-meta-item activity-kpi">MQL</span>
+            <span class="activity-meta-item activity-sql-impact">+75 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1628,13 +1731,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">Get a Quote Paid LP</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">BAU / Support</span>
             <span class="activity-meta-item activity-region">ALL</span>
             <span class="activity-meta-item activity-kpi">CVR</span>
+            <span class="activity-meta-item activity-sql-impact">+106 SQL</span>
             <span class="activity-meta-item activity-impact-medium">medium</span>
           </div>
         </div>
@@ -1645,13 +1749,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="may">
         <div>
           <div class="activity-title">Homepage redesign + CRO (new template + components)</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">BAU / Support</span>
             <span class="activity-meta-item activity-region">ALL</span>
             <span class="activity-meta-item activity-kpi">CVR</span>
+            <span class="activity-meta-item activity-sql-impact">+73 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1662,13 +1767,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="april">
         <div>
           <div class="activity-title">[PAID] Form test — shortened modality dropdown (launching this week)</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">CRO / Experimentation</span>
             <span class="activity-meta-item activity-region">ALL</span>
             <span class="activity-meta-item activity-kpi">CVR</span>
+            <span class="activity-meta-item activity-sql-impact">+174 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1679,13 +1785,14 @@ body {
         </div>
       </div>
       
-      <div class="activity-row">
+      <div class="activity-row" data-month="may–june">
         <div>
           <div class="activity-title">[ORG] Pricing page AB tests (variant 2 + 3)</div>
           <div class="activity-meta">
             <span class="activity-meta-item activity-bucket">CRO / Experimentation</span>
             <span class="activity-meta-item activity-region">ALL</span>
             <span class="activity-meta-item activity-kpi">CVR</span>
+            <span class="activity-meta-item activity-sql-impact">+73 SQL</span>
             <span class="activity-meta-item activity-impact-high">high</span>
           </div>
         </div>
@@ -1700,6 +1807,7 @@ body {
 
   </div>
 </div>
+</div><!-- /tab-roadmap -->
 
 </div><!-- /container -->
 
@@ -1708,5 +1816,39 @@ body {
   Glofox SMB Demand Gen &nbsp;·&nbsp; Last updated 2026-04-14 &nbsp;·&nbsp; Week 16
 </div>
 
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Month filter
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const month = btn.dataset.month;
+    document.querySelectorAll('.activity-row').forEach(row => {
+      if (month === 'all') { row.style.display = ''; return; }
+      const tw = (row.dataset.month || '').toLowerCase();
+      const matches = tw.includes(month) || (month === 'april' && tw.includes('apr'));
+      row.style.display = matches ? '' : 'none';
+    });
+    // Update visible counts per column
+    [['count-paid', '.card:nth-child(1)'], ['count-np', '.card:nth-child(2)'], ['count-web', '.card:nth-child(3)']].forEach(([id, sel]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const card = el.closest('.card');
+      const visible = [...card.querySelectorAll('.activity-row')].filter(r => r.style.display !== 'none').length;
+      el.textContent = visible + ' items';
+    });
+  });
+});
+</script>
 </body>
 </html>

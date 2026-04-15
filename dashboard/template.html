@@ -234,6 +234,62 @@ body {
 .text-purple { color: var(--purple); }
 .text-muted  { color: var(--muted); }
 .fw-700 { font-weight: 700; }
+
+/* ── Tab navigation ── */
+.tab-nav-bar {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+.tab-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+}
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 20px;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+  font-family: inherit;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── Month filter ── */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.filter-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 4px; }
+.filter-btn {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 14px;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.filter-btn:hover { color: var(--text); border-color: var(--muted); }
+.filter-btn.active { background: rgba(79,142,247,0.15); color: var(--blue); border-color: var(--blue); }
+
+/* ── SQL impact chip ── */
+.activity-sql-impact { color: var(--green); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -252,7 +308,16 @@ body {
   </div>
 </div>
 
+<!-- ══ TAB NAV ══════════════════════════════════════════════════════════════ -->
+<div class="tab-nav-bar">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="roadmap">Roadmap</button>
+  </div>
+</div>
+
 <div class="container">
+<div id="tab-overview" class="tab-content active">
 
 <!-- ══ APRIL PACING OVERVIEW ════════════════════════════════════════════════ -->
 <div class="section">
@@ -554,9 +619,19 @@ body {
   </div>
 </div>
 
-<!-- ══ ACTIVITIES IN FLIGHT ════════════════════════════════════════════════ -->
+</div><!-- /tab-overview -->
+
+<!-- ══ ROADMAP TAB ══════════════════════════════════════════════════════════ -->
+<div id="tab-roadmap" class="tab-content">
 <div class="section">
-  <div class="section-label">Activities in Flight</div>
+
+  <div class="filter-bar">
+    <span class="filter-label">Month</span>
+    <button class="filter-btn active" data-month="all">All</button>
+    <button class="filter-btn" data-month="april">April</button>
+    <button class="filter-btn" data-month="may">May</button>
+    <button class="filter-btn" data-month="june">June</button>
+  </div>
 
   <div class="grid-3">
 
@@ -567,16 +642,17 @@ body {
           <div class="team-name">Paid</div>
           <div style="font-size:11px; color:var(--muted); margin-top:1px;">Aman Dayal</div>
         </div>
-        <div class="team-count">{{ activities.paid | length }} items</div>
+        <div class="team-count" id="count-paid">{{ activities.paid | length }} items</div>
       </div>
       {% for a in activities.paid %}
-      <div class="activity-row">
+      <div class="activity-row" data-month="{{ a.target_week | lower }}">
         <div>
           <div class="activity-title">{{ a.title }}</div>
           <div class="activity-meta">
             {% if a.bucket %}<span class="activity-meta-item activity-bucket">{{ a.bucket }}</span>{% endif %}
             <span class="activity-meta-item activity-region">{{ a.region }}</span>
             {% if a.kpi %}<span class="activity-meta-item activity-kpi">{{ a.kpi }}</span>{% endif %}
+            {% if a.sql_impact %}<span class="activity-meta-item activity-sql-impact">{{ a.sql_impact }} SQL</span>{% endif %}
             <span class="activity-meta-item activity-impact-{{ a.impact }}">{{ a.impact }}</span>
           </div>
         </div>
@@ -596,16 +672,17 @@ body {
           <div class="team-name">Non-Paid</div>
           <div style="font-size:11px; color:var(--muted); margin-top:1px;">Tanya · Kaeli · Angharad</div>
         </div>
-        <div class="team-count">{{ activities.non_paid | length }} items</div>
+        <div class="team-count" id="count-np">{{ activities.non_paid | length }} items</div>
       </div>
       {% for a in activities.non_paid %}
-      <div class="activity-row">
+      <div class="activity-row" data-month="{{ a.target_week | lower }}">
         <div>
           <div class="activity-title">{{ a.title }}</div>
           <div class="activity-meta">
             {% if a.bucket %}<span class="activity-meta-item activity-bucket">{{ a.bucket }}</span>{% endif %}
             <span class="activity-meta-item activity-region">{{ a.region }}</span>
             {% if a.kpi %}<span class="activity-meta-item activity-kpi">{{ a.kpi }}</span>{% endif %}
+            {% if a.sql_impact %}<span class="activity-meta-item activity-sql-impact">{{ a.sql_impact }} SQL</span>{% endif %}
             <span class="activity-meta-item activity-impact-{{ a.impact }}">{{ a.impact }}</span>
           </div>
         </div>
@@ -625,16 +702,17 @@ body {
           <div class="team-name">Web / SEO</div>
           <div style="font-size:11px; color:var(--muted); margin-top:1px;">Ben · Web team</div>
         </div>
-        <div class="team-count">{{ activities.web_seo | length }} items</div>
+        <div class="team-count" id="count-web">{{ activities.web_seo | length }} items</div>
       </div>
       {% for a in activities.web_seo %}
-      <div class="activity-row">
+      <div class="activity-row" data-month="{{ a.target_week | lower }}">
         <div>
           <div class="activity-title">{{ a.title }}</div>
           <div class="activity-meta">
             {% if a.bucket %}<span class="activity-meta-item activity-bucket">{{ a.bucket }}</span>{% endif %}
             <span class="activity-meta-item activity-region">{{ a.region }}</span>
             {% if a.kpi %}<span class="activity-meta-item activity-kpi">{{ a.kpi }}</span>{% endif %}
+            {% if a.sql_impact %}<span class="activity-meta-item activity-sql-impact">{{ a.sql_impact }} SQL</span>{% endif %}
             <span class="activity-meta-item activity-impact-{{ a.impact }}">{{ a.impact }}</span>
           </div>
         </div>
@@ -649,6 +727,7 @@ body {
 
   </div>
 </div>
+</div><!-- /tab-roadmap -->
 
 </div><!-- /container -->
 
@@ -657,5 +736,39 @@ body {
   Glofox SMB Demand Gen &nbsp;·&nbsp; Last updated {{ last_updated }} &nbsp;·&nbsp; Week {{ week_number }}
 </div>
 
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Month filter
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const month = btn.dataset.month;
+    document.querySelectorAll('.activity-row').forEach(row => {
+      if (month === 'all') { row.style.display = ''; return; }
+      const tw = (row.dataset.month || '').toLowerCase();
+      const matches = tw.includes(month) || (month === 'april' && tw.includes('apr'));
+      row.style.display = matches ? '' : 'none';
+    });
+    // Update visible counts per column
+    [['count-paid', '.card:nth-child(1)'], ['count-np', '.card:nth-child(2)'], ['count-web', '.card:nth-child(3)']].forEach(([id, sel]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const card = el.closest('.card');
+      const visible = [...card.querySelectorAll('.activity-row')].filter(r => r.style.display !== 'none').length;
+      el.textContent = visible + ' items';
+    });
+  });
+});
+</script>
 </body>
 </html>
