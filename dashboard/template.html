@@ -331,21 +331,6 @@ body {
 }
 .filter-region:hover { color: var(--text); border-color: var(--muted); }
 .filter-region.active { background: rgba(46,204,113,0.15); color: var(--green); border-color: var(--green); }
-/* ── Segment filter ── */
-.filter-seg {
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 5px 14px;
-  transition: all 0.15s;
-  font-family: inherit;
-}
-.filter-seg:hover { color: var(--text); border-color: var(--muted); }
-.filter-seg.active { background: rgba(243,156,18,0.15); color: var(--amber); border-color: var(--amber); }
 .filter-divider { width: 1px; background: var(--border); align-self: stretch; margin: 4px 4px; }
 </style>
 </head>
@@ -411,6 +396,31 @@ body {
       </div>
     </div>
   </div>
+
+  <!-- CVR trend alert -->
+  {% if april_11d and april_11d.cvr_trend %}
+  {% set ct = april_11d.cvr_trend %}
+  {% set any_drop = ct.NA.apr < ct.NA.mar or ct.EMEA.apr < ct.EMEA.mar or ct.APAC.apr < ct.APAC.mar %}
+  {% if any_drop %}
+  <div style="background:rgba(231,76,60,0.08); border:1px solid rgba(231,76,60,0.3); border-radius:8px; padding:12px 16px; margin-bottom:12px; display:flex; align-items:flex-start; gap:10px;">
+    <span style="font-size:16px; line-height:1;">⚠️</span>
+    <div>
+      <div style="font-size:12px; font-weight:700; color:var(--red); margin-bottom:4px;">CVR declining vs March</div>
+      <div style="font-size:12px; color:var(--muted); line-height:1.6;">
+        {% for region_name, label in [('NA','NA'), ('EMEA','EMEA'), ('APAC','APAC')] %}
+        {% set r = ct[region_name] %}
+        {% set delta = ((r.apr - r.mar) * 100) | round(1) %}
+        <span style="margin-right:18px;">
+          <strong style="color:var(--text);">{{ label }}</strong>
+          {{ "%.1f"|format(r.mar * 100) }}% → <strong style="color:{% if r.apr < r.mar %}var(--red){% else %}var(--green){% endif %};">{{ "%.1f"|format(r.apr * 100) }}%</strong>
+          <span style="color:{% if delta < 0 %}var(--red){% else %}var(--green){% endif %};">({% if delta > 0 %}+{% endif %}{{ delta }}pp)</span>
+        </span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endif %}
 
   <!-- Pacing progress bar -->
   <div class="card" style="margin-bottom:12px; padding:14px 20px;">
@@ -712,11 +722,6 @@ body {
     <button class="filter-region" data-region="emea">EMEA</button>
     <button class="filter-region" data-region="apac">APAC</button>
     <span class="filter-divider"></span>
-    <span class="filter-label">Segment</span>
-    <button class="filter-seg active" data-seg="all">All</button>
-    <button class="filter-seg" data-seg="smb">SMB</button>
-    <button class="filter-seg" data-seg="mml">MML</button>
-    <span class="filter-divider"></span>
     <span class="filter-label">Impact type</span>
     <button class="filter-kpi active" data-kpi="all">All</button>
     <button class="filter-kpi" data-kpi="cvr">CVR</button>
@@ -837,17 +842,15 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-// Quad filter: Month + Region + Segment + Impact type (all must match)
+// Triple filter: Month + Region + Impact type (all must match)
 let activeMonth  = 'all';
 let activeRegion = 'all';
-let activeSeg    = 'all';
 let activeKpi    = 'all';
 
 function applyFilters() {
   document.querySelectorAll('.activity-row').forEach(row => {
     const tw  = (row.dataset.month  || '').toLowerCase();
     const rg  = (row.dataset.region || '').toLowerCase();
-    const sg  = (row.dataset.seg    || '').toLowerCase();
     const kpi = (row.dataset.kpi    || '').toLowerCase();
 
     const monthOk = activeMonth === 'all'
@@ -859,16 +862,11 @@ function applyFilters() {
       || rg === 'all'
       || rg.includes(activeRegion);
 
-    // segment: row may list "smb" or "mml" or "smb + mml"
-    const segOk = activeSeg === 'all'
-      || sg === 'all'
-      || sg.includes(activeSeg);
-
     const kpiOk = activeKpi === 'all'
       || (activeKpi === 'cvr'    && kpi === 'cvr')
       || (activeKpi === 'volume' && (kpi === 'mql' || kpi === 'traffic' || kpi === 'sql'));
 
-    row.style.display = (monthOk && regionOk && segOk && kpiOk) ? '' : 'none';
+    row.style.display = (monthOk && regionOk && kpiOk) ? '' : 'none';
   });
   ['count-paid', 'count-np', 'count-web'].forEach(id => {
     const el = document.getElementById(id);
@@ -893,15 +891,6 @@ document.querySelectorAll('.filter-region').forEach(btn => {
     document.querySelectorAll('.filter-region').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     activeRegion = btn.dataset.region;
-    applyFilters();
-  });
-});
-
-document.querySelectorAll('.filter-seg').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-seg').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeSeg = btn.dataset.seg;
     applyFilters();
   });
 });

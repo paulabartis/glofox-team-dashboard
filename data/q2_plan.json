@@ -32,169 +32,849 @@
       }
     },
     "q2_scenarios": {
-      "worst":      { "NA": 788,  "EMEA": 639, "APAC": 153, "smb": 1427 },
-      "hold_rate":  { "NA": 846,  "EMEA": 655, "APAC": 130, "smb": 1501 },
-      "apr_pacing": { "NA": 881,  "EMEA": 614, "APAC": 119, "smb": 1495 },
-      "best":       { "NA": 979,  "EMEA": 717, "APAC": 132, "smb": 1696 },
-      "aop":        { "NA": 1052, "EMEA": 750, "APAC": 90,  "smb": 1802 }
+      "worst": {
+        "NA": 788,
+        "EMEA": 639,
+        "APAC": 153,
+        "smb": 1427
+      },
+      "hold_rate": {
+        "NA": 846,
+        "EMEA": 655,
+        "APAC": 130,
+        "smb": 1501
+      },
+      "apr_pacing": {
+        "NA": 881,
+        "EMEA": 614,
+        "APAC": 119,
+        "smb": 1495
+      },
+      "best": {
+        "NA": 979,
+        "EMEA": 717,
+        "APAC": 132,
+        "smb": 1696
+      },
+      "aop": {
+        "NA": 1052,
+        "EMEA": 750,
+        "APAC": 90,
+        "smb": 1802
+      }
     }
   },
   "actuals": {
-    "q2_to_date": { "NA": 89, "EMEA": 61, "APAC": 9 },
-    "april":      { "NA": 89, "EMEA": 61, "APAC": 9, "total": 159 }
+    "q2_to_date": {
+      "NA": 89,
+      "EMEA": 61,
+      "APAC": 9
+    },
+    "april": {
+      "NA": 89,
+      "EMEA": 61,
+      "APAC": 9,
+      "total": 159
+    }
   },
   "april_11d": {
-    "source": "Apr 1–11 actuals · GF Q2 Demand Forecast (Salesforce) · pace ×2.73",
+    "source": "Apr 1\u201311 actuals \u00b7 GF Q2 Demand Forecast (Salesforce) \u00b7 pace \u00d72.73",
     "pace_factor": 2.727,
     "regions": {
       "NA": {
         "paid": {
           "label": "Paid",
-          "mar_sql": 178, "mar_cvr": 0.2065,
-          "apr_mql": 859, "apr_sql": 194, "apr_cvr": 0.2258,
-          "aop_sql": 276, "delta": -82,
+          "mar_sql": 178,
+          "mar_cvr": 0.2065,
+          "apr_mql": 859,
+          "apr_sql": 194,
+          "apr_cvr": 0.2258,
+          "aop_sql": 276,
+          "delta": -82,
           "sub": [
-            { "name": "Gym Management",    "mar_sql": 37, "mar_cvr": 0.1152, "apr_mql": 322, "apr_sql": 68, "apr_cvr": 0.2112, "aop_sql": 102, "delta": -34 },
-            { "name": "Google Competitor", "mar_sql": 50, "mar_cvr": 0.2315, "apr_mql": 215, "apr_sql": 49, "apr_cvr": 0.2279, "aop_sql": 69,  "delta": -20 },
-            { "name": "Google Branded",    "mar_sql": 49, "mar_cvr": 0.3828, "apr_mql": 128, "apr_sql": 30, "apr_cvr": 0.2344, "aop_sql": 41,  "delta": -11 },
-            { "name": "Meta / Awareness",  "mar_sql":  6, "mar_cvr": 0.0750, "apr_mql":  79, "apr_sql": 19, "apr_cvr": 0.2405, "aop_sql": 26,  "delta":  -7 },
-            { "name": "Modality",          "mar_sql": 31, "mar_cvr": 0.3735, "apr_mql":  82, "apr_sql": 19, "apr_cvr": 0.2317, "aop_sql": 27,  "delta":  -8 },
-            { "name": "Bing",              "mar_sql":  4, "mar_cvr": 0.1176, "apr_mql":  33, "apr_sql":  8, "apr_cvr": 0.2424, "aop_sql": 11,  "delta":  -3 }
+            {
+              "name": "Gym Management",
+              "mar_sql": 37,
+              "mar_cvr": 0.1152,
+              "apr_mql": 322,
+              "apr_sql": 68,
+              "apr_cvr": 0.2112,
+              "aop_sql": 102,
+              "delta": -34
+            },
+            {
+              "name": "Google Competitor",
+              "mar_sql": 50,
+              "mar_cvr": 0.2315,
+              "apr_mql": 215,
+              "apr_sql": 49,
+              "apr_cvr": 0.2279,
+              "aop_sql": 69,
+              "delta": -20
+            },
+            {
+              "name": "Google Branded",
+              "mar_sql": 49,
+              "mar_cvr": 0.3828,
+              "apr_mql": 128,
+              "apr_sql": 30,
+              "apr_cvr": 0.2344,
+              "aop_sql": 41,
+              "delta": -11
+            },
+            {
+              "name": "Meta / Awareness",
+              "mar_sql": 6,
+              "mar_cvr": 0.075,
+              "apr_mql": 79,
+              "apr_sql": 19,
+              "apr_cvr": 0.2405,
+              "aop_sql": 26,
+              "delta": -7
+            },
+            {
+              "name": "Modality",
+              "mar_sql": 31,
+              "mar_cvr": 0.3735,
+              "apr_mql": 82,
+              "apr_sql": 19,
+              "apr_cvr": 0.2317,
+              "aop_sql": 27,
+              "delta": -8
+            },
+            {
+              "name": "Bing",
+              "mar_sql": 4,
+              "mar_cvr": 0.1176,
+              "apr_mql": 33,
+              "apr_sql": 8,
+              "apr_cvr": 0.2424,
+              "aop_sql": 11,
+              "delta": -3
+            }
           ]
         },
         "non_paid": {
           "label": "Non-Paid (ex-MCL)",
-          "mar_sql": 65, "mar_cvr": 0.2664,
-          "apr_mql": 259, "apr_sql": 49, "apr_cvr": 0.1892,
-          "aop_sql": 92, "delta": -43,
+          "mar_sql": 65,
+          "mar_cvr": 0.2664,
+          "apr_mql": 259,
+          "apr_sql": 49,
+          "apr_cvr": 0.1892,
+          "aop_sql": 92,
+          "delta": -43,
           "sub": [
-            { "name": "Website + CRO",     "mar_sql": 23, "mar_cvr": 0.1885, "apr_mql": 123, "apr_sql": 16, "apr_cvr": 0.1301, "aop_sql": 46, "delta": -30 },
-            { "name": "Content (Organic)", "mar_sql": 21, "mar_cvr": 0.2471, "apr_mql":  85, "apr_sql": 16, "apr_cvr": 0.1882, "aop_sql": 32, "delta": -16 },
-            { "name": "Referrals / Social","mar_sql": 13, "mar_cvr": 0.4643, "apr_mql":  49, "apr_sql":  8, "apr_cvr": 0.1633, "aop_sql": 11, "delta":  -3 },
-            { "name": "Always On / Email", "mar_sql":  8, "mar_cvr": 0.8889, "apr_mql":   3, "apr_sql":  8, "apr_cvr": null,   "aop_sql":  3, "delta":   5 }
+            {
+              "name": "Website + CRO",
+              "mar_sql": 23,
+              "mar_cvr": 0.1885,
+              "apr_mql": 123,
+              "apr_sql": 16,
+              "apr_cvr": 0.1301,
+              "aop_sql": 46,
+              "delta": -30
+            },
+            {
+              "name": "Content (Organic)",
+              "mar_sql": 21,
+              "mar_cvr": 0.2471,
+              "apr_mql": 85,
+              "apr_sql": 16,
+              "apr_cvr": 0.1882,
+              "aop_sql": 32,
+              "delta": -16
+            },
+            {
+              "name": "Referrals / Social",
+              "mar_sql": 13,
+              "mar_cvr": 0.4643,
+              "apr_mql": 49,
+              "apr_sql": 8,
+              "apr_cvr": 0.1633,
+              "aop_sql": 11,
+              "delta": -3
+            },
+            {
+              "name": "Always On / Email",
+              "mar_sql": 8,
+              "mar_cvr": 0.8889,
+              "apr_mql": 3,
+              "apr_sql": 8,
+              "apr_cvr": null,
+              "aop_sql": 3,
+              "delta": 5
+            }
           ]
         },
-        "mcl": { "label": "MCL (excl.)", "apr_mql": 146 },
+        "mcl": {
+          "label": "MCL (excl.)",
+          "apr_mql": 146
+        },
         "total": {
-          "mar_sql": 246, "mar_cvr": 0.1965,
-          "apr_mql": 1287, "apr_sql": 243, "apr_cvr": 0.1888,
-          "aop_sql": 367, "delta": -124
+          "mar_sql": 246,
+          "mar_cvr": 0.1965,
+          "apr_mql": 1287,
+          "apr_sql": 243,
+          "apr_cvr": 0.1888,
+          "aop_sql": 367,
+          "delta": -124
         }
       },
       "EMEA": {
         "paid": {
           "label": "Paid",
-          "mar_sql": 120, "mar_cvr": 0.1869,
-          "apr_mql": 608, "apr_sql": 106, "apr_cvr": 0.1743,
-          "aop_sql": 196, "delta": -90,
+          "mar_sql": 120,
+          "mar_cvr": 0.1869,
+          "apr_mql": 608,
+          "apr_sql": 106,
+          "apr_cvr": 0.1743,
+          "aop_sql": 196,
+          "delta": -90,
           "sub": [
-            { "name": "Gym Management",    "mar_sql": 41, "mar_cvr": 0.1627, "apr_mql": 210, "apr_sql": 38, "apr_cvr": 0.1810, "aop_sql": 67, "delta": -29 },
-            { "name": "Bing",              "mar_sql": 23, "mar_cvr": 0.1429, "apr_mql": 136, "apr_sql": 25, "apr_cvr": 0.1838, "aop_sql": 44, "delta": -19 },
-            { "name": "Google Branded",    "mar_sql": 55, "mar_cvr": 0.4074, "apr_mql": 115, "apr_sql": 19, "apr_cvr": 0.1652, "aop_sql": 37, "delta": -18 },
-            { "name": "Google Competitor", "mar_sql": 29, "mar_cvr": 0.2736, "apr_mql":  90, "apr_sql": 16, "apr_cvr": 0.1778, "aop_sql": 29, "delta": -13 },
-            { "name": "Modality",          "mar_sql": 12, "mar_cvr": 0.1846, "apr_mql":  55, "apr_sql":  8, "apr_cvr": 0.1455, "aop_sql": 18, "delta": -10 },
-            { "name": "Meta / Awareness",  "mar_sql":  0, "mar_cvr": 0.0000, "apr_mql":   3, "apr_sql":  0, "apr_cvr": 0.0000, "aop_sql":  1, "delta":  -1 }
+            {
+              "name": "Gym Management",
+              "mar_sql": 41,
+              "mar_cvr": 0.1627,
+              "apr_mql": 210,
+              "apr_sql": 38,
+              "apr_cvr": 0.181,
+              "aop_sql": 67,
+              "delta": -29
+            },
+            {
+              "name": "Bing",
+              "mar_sql": 23,
+              "mar_cvr": 0.1429,
+              "apr_mql": 136,
+              "apr_sql": 25,
+              "apr_cvr": 0.1838,
+              "aop_sql": 44,
+              "delta": -19
+            },
+            {
+              "name": "Google Branded",
+              "mar_sql": 55,
+              "mar_cvr": 0.4074,
+              "apr_mql": 115,
+              "apr_sql": 19,
+              "apr_cvr": 0.1652,
+              "aop_sql": 37,
+              "delta": -18
+            },
+            {
+              "name": "Google Competitor",
+              "mar_sql": 29,
+              "mar_cvr": 0.2736,
+              "apr_mql": 90,
+              "apr_sql": 16,
+              "apr_cvr": 0.1778,
+              "aop_sql": 29,
+              "delta": -13
+            },
+            {
+              "name": "Modality",
+              "mar_sql": 12,
+              "mar_cvr": 0.1846,
+              "apr_mql": 55,
+              "apr_sql": 8,
+              "apr_cvr": 0.1455,
+              "aop_sql": 18,
+              "delta": -10
+            },
+            {
+              "name": "Meta / Awareness",
+              "mar_sql": 0,
+              "mar_cvr": 0.0,
+              "apr_mql": 3,
+              "apr_sql": 0,
+              "apr_cvr": 0.0,
+              "aop_sql": 1,
+              "delta": -1
+            }
           ]
         },
         "non_paid": {
           "label": "Non-Paid (ex-MCL)",
-          "mar_sql": 53, "mar_cvr": 0.2387,
-          "apr_mql": 245, "apr_sql": 60, "apr_cvr": 0.2449,
-          "aop_sql": 66, "delta": -6,
+          "mar_sql": 53,
+          "mar_cvr": 0.2387,
+          "apr_mql": 245,
+          "apr_sql": 60,
+          "apr_cvr": 0.2449,
+          "aop_sql": 66,
+          "delta": -6,
           "sub": [
-            { "name": "Website + CRO",     "mar_sql": 22, "mar_cvr": 0.2500, "apr_mql":  82, "apr_sql":  8, "apr_cvr": 0.0976, "aop_sql": 27, "delta": -19 },
-            { "name": "Content (Organic)", "mar_sql": 25, "mar_cvr": 0.2155, "apr_mql": 128, "apr_sql": 35, "apr_cvr": 0.2734, "aop_sql": 34, "delta":   1 },
-            { "name": "Referrals / Social","mar_sql":  5, "mar_cvr": 0.2941, "apr_mql":  35, "apr_sql": 16, "apr_cvr": 0.4571, "aop_sql":  5, "delta":  11 },
-            { "name": "Always On / Email", "mar_sql":  1, "mar_cvr": 1.0000, "apr_mql":   0, "apr_sql":  0, "apr_cvr": null,   "aop_sql":  0, "delta":   0 }
+            {
+              "name": "Website + CRO",
+              "mar_sql": 22,
+              "mar_cvr": 0.25,
+              "apr_mql": 82,
+              "apr_sql": 8,
+              "apr_cvr": 0.0976,
+              "aop_sql": 27,
+              "delta": -19
+            },
+            {
+              "name": "Content (Organic)",
+              "mar_sql": 25,
+              "mar_cvr": 0.2155,
+              "apr_mql": 128,
+              "apr_sql": 35,
+              "apr_cvr": 0.2734,
+              "aop_sql": 34,
+              "delta": 1
+            },
+            {
+              "name": "Referrals / Social",
+              "mar_sql": 5,
+              "mar_cvr": 0.2941,
+              "apr_mql": 35,
+              "apr_sql": 16,
+              "apr_cvr": 0.4571,
+              "aop_sql": 5,
+              "delta": 11
+            },
+            {
+              "name": "Always On / Email",
+              "mar_sql": 1,
+              "mar_cvr": 1.0,
+              "apr_mql": 0,
+              "apr_sql": 0,
+              "apr_cvr": null,
+              "aop_sql": 0,
+              "delta": 0
+            }
           ]
         },
-        "mcl": { "label": "MCL (excl.)", "apr_mql": 16 },
+        "mcl": {
+          "label": "MCL (excl.)",
+          "apr_mql": 16
+        },
         "total": {
-          "mar_sql": 172, "mar_cvr": 0.1959,
-          "apr_mql": 881, "apr_sql": 166, "apr_cvr": 0.1884,
-          "aop_sql": 262, "delta": -96
+          "mar_sql": 172,
+          "mar_cvr": 0.1959,
+          "apr_mql": 881,
+          "apr_sql": 166,
+          "apr_cvr": 0.1884,
+          "aop_sql": 262,
+          "delta": -96
         }
       },
       "APAC": {
         "paid": {
           "label": "Paid",
-          "mar_sql": 24, "mar_cvr": 0.3582,
-          "apr_mql": 52, "apr_sql": 11, "apr_cvr": 0.2115,
-          "aop_sql": 24, "delta": -13,
+          "mar_sql": 24,
+          "mar_cvr": 0.3582,
+          "apr_mql": 52,
+          "apr_sql": 11,
+          "apr_cvr": 0.2115,
+          "aop_sql": 24,
+          "delta": -13,
           "sub": [
-            { "name": "Google Branded",   "mar_sql": 19, "mar_cvr": 0.3750, "apr_mql": 38, "apr_sql": 8, "apr_cvr": 0.2105, "aop_sql": 18, "delta": -10 },
-            { "name": "Modality",         "mar_sql":  2, "mar_cvr": 0.1818, "apr_mql":  8, "apr_sql": 3, "apr_cvr": 0.3750, "aop_sql":  4, "delta":  -1 },
-            { "name": "Meta / Awareness", "mar_sql":  0, "mar_cvr": 0.0000, "apr_mql":  5, "apr_sql": 0, "apr_cvr": 0.0000, "aop_sql":  2, "delta":  -2 }
+            {
+              "name": "Google Branded",
+              "mar_sql": 19,
+              "mar_cvr": 0.375,
+              "apr_mql": 38,
+              "apr_sql": 8,
+              "apr_cvr": 0.2105,
+              "aop_sql": 18,
+              "delta": -10
+            },
+            {
+              "name": "Modality",
+              "mar_sql": 2,
+              "mar_cvr": 0.1818,
+              "apr_mql": 8,
+              "apr_sql": 3,
+              "apr_cvr": 0.375,
+              "aop_sql": 4,
+              "delta": -1
+            },
+            {
+              "name": "Meta / Awareness",
+              "mar_sql": 0,
+              "mar_cvr": 0.0,
+              "apr_mql": 5,
+              "apr_sql": 0,
+              "apr_cvr": 0.0,
+              "aop_sql": 2,
+              "delta": -2
+            }
           ]
         },
         "non_paid": {
           "label": "Non-Paid (ex-MCL)",
-          "mar_sql": 27, "mar_cvr": 0.3253,
-          "apr_mql": 93, "apr_sql": 14, "apr_cvr": 0.1505,
-          "aop_sql": 8, "delta": 6,
+          "mar_sql": 27,
+          "mar_cvr": 0.3253,
+          "apr_mql": 93,
+          "apr_sql": 14,
+          "apr_cvr": 0.1505,
+          "aop_sql": 8,
+          "delta": 6,
           "sub": [
-            { "name": "Website + CRO",     "mar_sql":  7, "mar_cvr": 0.2692, "apr_mql": 41, "apr_sql": 5, "apr_cvr": 0.1220, "aop_sql": 2, "delta": 3 },
-            { "name": "Content (Organic)", "mar_sql": 19, "mar_cvr": 0.3800, "apr_mql": 46, "apr_sql": 8, "apr_cvr": 0.1739, "aop_sql": 5, "delta": 3 },
-            { "name": "Referrals / Social","mar_sql":  1, "mar_cvr": 0.1429, "apr_mql":  5, "apr_sql": 0, "apr_cvr": 0.0000, "aop_sql": 1, "delta":-1 }
+            {
+              "name": "Website + CRO",
+              "mar_sql": 7,
+              "mar_cvr": 0.2692,
+              "apr_mql": 41,
+              "apr_sql": 5,
+              "apr_cvr": 0.122,
+              "aop_sql": 2,
+              "delta": 3
+            },
+            {
+              "name": "Content (Organic)",
+              "mar_sql": 19,
+              "mar_cvr": 0.38,
+              "apr_mql": 46,
+              "apr_sql": 8,
+              "apr_cvr": 0.1739,
+              "aop_sql": 5,
+              "delta": 3
+            },
+            {
+              "name": "Referrals / Social",
+              "mar_sql": 1,
+              "mar_cvr": 0.1429,
+              "apr_mql": 5,
+              "apr_sql": 0,
+              "apr_cvr": 0.0,
+              "aop_sql": 1,
+              "delta": -1
+            }
           ]
         },
         "mcl": null,
         "total": {
-          "mar_sql": 51, "mar_cvr": 0.3400,
-          "apr_mql": 142, "apr_sql": 25, "apr_cvr": 0.1761,
-          "aop_sql": 30, "delta": -5
+          "mar_sql": 51,
+          "mar_cvr": 0.34,
+          "apr_mql": 142,
+          "apr_sql": 25,
+          "apr_cvr": 0.1761,
+          "aop_sql": 30,
+          "delta": -5
         }
       }
     },
     "all_regions": {
-      "mar_sql": 469, "mar_cvr": 0.2057,
-      "apr_mql": 2310, "apr_sql": 434, "apr_cvr": 0.1879,
-      "aop_sql": 659, "delta": -225
+      "mar_sql": 469,
+      "mar_cvr": 0.2057,
+      "apr_mql": 2310,
+      "apr_sql": 434,
+      "apr_cvr": 0.1879,
+      "aop_sql": 659,
+      "delta": -225
+    },
+    "cvr_trend": {
+      "NA":   { "mar": 0.207, "apr": 0.189 },
+      "EMEA": { "mar": 0.187, "apr": 0.188 },
+      "APAC": { "mar": 0.340, "apr": 0.176 }
     }
   },
   "cvr_march": {
-    "NA":   { "paid": 0.205, "np": 0.266 },
-    "EMEA": { "paid": 0.222, "np": 0.239 },
-    "APAC": { "paid": 0.313, "np": 0.325 }
+    "NA": {
+      "paid": 0.205,
+      "np": 0.266
+    },
+    "EMEA": {
+      "paid": 0.222,
+      "np": 0.239
+    },
+    "APAC": {
+      "paid": 0.313,
+      "np": 0.325
+    }
   },
   "activities": {
     "paid": [
-      { "title": "Search NA — Competitor RSA audit + MindBody copy test", "bucket": "Search", "status": "in progress", "impact": "high", "region": "NA", "owner": "Aman", "target_week": "April", "kpi": "CVR", "sql_impact": "+174" },
-      { "title": "Search NA — tCPA reset + Canada keyword expansion", "bucket": "Search", "status": "in progress", "impact": "high", "region": "NA", "owner": "Aman", "target_week": "April–May", "kpi": "MQL", "sql_impact": "+174" },
-      { "title": "Search NA — Competitor top tier keyword refinement", "bucket": "Search", "status": "in progress", "impact": "medium", "region": "NA", "owner": "Aman", "target_week": "April", "kpi": "MQL", "sql_impact": "+25" },
-      { "title": "Search NA — Gym Management segmentation + Broad refinement", "bucket": "Search", "status": "not started", "impact": "medium", "region": "NA", "owner": "Aman", "target_week": "May", "kpi": "CVR", "sql_impact": "+25" },
-      { "title": "Search EMEA — Competitor WW RSA audit + tCPA adjustment", "bucket": "Search", "status": "in progress", "impact": "high", "region": "EMEA", "owner": "Aman", "target_week": "April", "kpi": "CVR", "sql_impact": "+106" },
-      { "title": "Search EMEA — MindBody + Momence copy tests", "bucket": "Search", "status": "in progress", "impact": "high", "region": "EMEA", "owner": "Aman", "target_week": "April", "kpi": "CVR", "sql_impact": "+106" },
-      { "title": "Search EMEA — WW keyword expansion (Mariana Tek, Bsport, Gymdesk)", "bucket": "Search", "status": "not started", "impact": "medium", "region": "EMEA", "owner": "Aman", "target_week": "May", "kpi": "MQL", "sql_impact": "+25" },
-      { "title": "Social NA — Prospecting + modality + competitor retargeting", "bucket": "Social", "status": "in progress", "impact": "medium", "region": "NA", "owner": "Aman", "target_week": "April", "kpi": "MQL", "sql_impact": "+174" },
-      { "title": "DG — PMax structural reset + sequenced creative test", "bucket": "DG / pMax", "status": "not started", "impact": "medium", "region": "NA", "owner": "Aman", "target_week": "May", "kpi": "MQL", "sql_impact": "+174" },
-      { "title": "CRO — Form segment dropdown test + Q2 promo pop-up", "bucket": "Website + CRO", "status": "in progress", "impact": "medium", "region": "ALL", "owner": "Aman / Ben", "target_week": "April–June", "kpi": "CVR", "sql_impact": "+73" }
+      {
+        "title": "Search NA \u2014 Competitor RSA audit + MindBody copy test",
+        "bucket": "Search",
+        "status": "in progress",
+        "impact": "high",
+        "region": "NA",
+        "owner": "Aman",
+        "target_week": "April",
+        "kpi": "CVR",
+        "sql_impact": "+174",
+        "segment": "SMB"
+      },
+      {
+        "title": "Search NA \u2014 tCPA reset + Canada keyword expansion",
+        "bucket": "Search",
+        "status": "in progress",
+        "impact": "high",
+        "region": "NA",
+        "owner": "Aman",
+        "target_week": "April\u2013May",
+        "kpi": "MQL",
+        "sql_impact": "+174",
+        "segment": "SMB"
+      },
+      {
+        "title": "Search NA \u2014 Competitor top tier keyword refinement",
+        "bucket": "Search",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA",
+        "owner": "Aman",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "Search NA \u2014 Gym Management segmentation + Broad refinement",
+        "bucket": "Search",
+        "status": "not started",
+        "impact": "medium",
+        "region": "NA",
+        "owner": "Aman",
+        "target_week": "May",
+        "kpi": "CVR",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "Search EMEA \u2014 Competitor WW RSA audit + tCPA adjustment",
+        "bucket": "Search",
+        "status": "in progress",
+        "impact": "high",
+        "region": "EMEA",
+        "owner": "Aman",
+        "target_week": "April",
+        "kpi": "CVR",
+        "sql_impact": "+106",
+        "segment": "SMB"
+      },
+      {
+        "title": "Search EMEA \u2014 MindBody + Momence copy tests",
+        "bucket": "Search",
+        "status": "in progress",
+        "impact": "high",
+        "region": "EMEA",
+        "owner": "Aman",
+        "target_week": "April",
+        "kpi": "CVR",
+        "sql_impact": "+106",
+        "segment": "SMB"
+      },
+      {
+        "title": "Search EMEA \u2014 WW keyword expansion (Mariana Tek, Bsport, Gymdesk)",
+        "bucket": "Search",
+        "status": "not started",
+        "impact": "medium",
+        "region": "EMEA",
+        "owner": "Aman",
+        "target_week": "May",
+        "kpi": "MQL",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "Social NA \u2014 Prospecting + modality + competitor retargeting",
+        "bucket": "Social",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA",
+        "owner": "Aman",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+174",
+        "segment": "SMB"
+      },
+      {
+        "title": "DG \u2014 PMax structural reset + sequenced creative test",
+        "bucket": "DG / pMax",
+        "status": "not started",
+        "impact": "medium",
+        "region": "NA",
+        "owner": "Aman",
+        "target_week": "May",
+        "kpi": "MQL",
+        "sql_impact": "+174",
+        "segment": "SMB"
+      },
+      {
+        "title": "CRO \u2014 Form segment dropdown test + Q2 promo pop-up",
+        "bucket": "Website + CRO",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "ALL",
+        "owner": "Aman / Ben",
+        "target_week": "April\u2013June",
+        "kpi": "CVR",
+        "sql_impact": "+73",
+        "segment": "SMB"
+      }
     ],
     "non_paid": [
-      { "title": "Always On nurtures — Awareness / Consideration / Decision / Dormant streams", "bucket": "Always On / Email", "status": "in progress", "impact": "high", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April", "kpi": "MQL", "sql_impact": "+73" },
-      { "title": "Warmly — high intent + Bombora + pre-MQL outreach sequences", "bucket": "DemandGen", "status": "in progress", "impact": "high", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April", "kpi": "MQL", "sql_impact": "+73" },
-      { "title": "Reddit Lens", "bucket": "DemandGen", "status": "in progress", "impact": "medium", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April", "kpi": "Traffic", "sql_impact": "+25" },
-      { "title": "KO campaigns — Wellness Living + Zen Planner", "bucket": "DemandGen", "status": "in progress", "impact": "medium", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April–May", "kpi": "MQL", "sql_impact": "+73" },
-      { "title": "Pilates Toolkit (LP needed)", "bucket": "DemandGen", "status": "in progress", "impact": "medium", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April", "kpi": "Traffic", "sql_impact": "+25" },
-      { "title": "Payments Webinar Apr 28 + Payment Link Deminar May 7", "bucket": "DemandGen", "status": "in progress", "impact": "medium", "region": "NA + EMEA", "owner": "Tanya", "target_week": "Apr 28", "kpi": "MQL", "sql_impact": "+25" },
-      { "title": "FIBO Event (blog + emails) + Post-FIBO Webinar", "bucket": "Referrals / Events", "status": "in progress", "impact": "high", "region": "EMEA", "owner": "Tanya", "target_week": "April", "kpi": "MQL", "sql_impact": "+75" },
-      { "title": "GymLaunch webinar + lead magnet activation", "bucket": "DemandGen", "status": "in progress", "impact": "medium", "region": "EMEA", "owner": "Tanya", "target_week": "April", "kpi": "MQL", "sql_impact": "+75" },
-      { "title": "Athletech April numbers + May dedicated email + report", "bucket": "DemandGen", "status": "not started", "impact": "medium", "region": "NA + EMEA", "owner": "Tanya", "target_week": "April–May", "kpi": "Traffic", "sql_impact": "+75" },
-      { "title": "APAC — New functional landing page + SDR Loom videos", "bucket": "Website + CRO", "status": "in progress", "impact": "medium", "region": "APAC", "owner": "Angharad", "target_week": "April", "kpi": "MQL", "sql_impact": "+10" },
-      { "title": "APAC — Studio Growth email sequence + list enrichment", "bucket": "Always On / Email", "status": "not started", "impact": "low", "region": "APAC", "owner": "Angharad", "target_week": "May", "kpi": "SQL", "sql_impact": "+10" }
+      {
+        "title": "Always On nurtures \u2014 Awareness / Consideration / Decision / Dormant streams",
+        "bucket": "Always On / Email",
+        "status": "in progress",
+        "impact": "high",
+        "region": "NA + EMEA",
+        "owner": "Tanya",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+73",
+        "segment": "SMB"
+      },
+      {
+        "title": "Warmly \u2014 high intent + Bombora + pre-MQL outreach sequences",
+        "bucket": "DemandGen",
+        "status": "in progress",
+        "impact": "high",
+        "region": "NA + EMEA",
+        "owner": "Tanya",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+73",
+        "segment": "SMB"
+      },
+      {
+        "title": "Reddit Lens",
+        "bucket": "DemandGen",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA + EMEA",
+        "owner": "Tanya",
+        "target_week": "April",
+        "kpi": "Traffic",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "KO campaigns \u2014 Wellness Living + Zen Planner",
+        "bucket": "DemandGen",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA + EMEA",
+        "owner": "Tanya",
+        "target_week": "April\u2013May",
+        "kpi": "MQL",
+        "sql_impact": "+73",
+        "segment": "SMB"
+      },
+      {
+        "title": "Pilates Toolkit (LP needed)",
+        "bucket": "DemandGen",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA + EMEA",
+        "owner": "Tanya",
+        "target_week": "April",
+        "kpi": "Traffic",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "Payments Webinar Apr 28 + Payment Link Deminar May 7",
+        "bucket": "DemandGen",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "NA + EMEA",
+        "owner": "Tanya",
+        "target_week": "Apr 28",
+        "kpi": "MQL",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "FIBO Event (blog + emails) + Post-FIBO Webinar",
+        "bucket": "Referrals / Events",
+        "status": "in progress",
+        "impact": "high",
+        "region": "EMEA",
+        "owner": "Tanya",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+75",
+        "segment": "SMB"
+      },
+      {
+        "title": "GymLaunch webinar + lead magnet activation",
+        "bucket": "DemandGen",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "EMEA",
+        "owner": "Tanya",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+75",
+        "segment": "SMB"
+      },
+      {
+        "title": "Athletech April numbers + May dedicated email + report",
+        "bucket": "DemandGen",
+        "status": "not started",
+        "impact": "medium",
+        "region": "NA + EMEA",
+        "owner": "Tanya",
+        "target_week": "April\u2013May",
+        "kpi": "Traffic",
+        "sql_impact": "+75",
+        "segment": "SMB"
+      },
+      {
+        "title": "APAC \u2014 New functional landing page + SDR Loom videos",
+        "bucket": "Website + CRO",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "APAC",
+        "owner": "Angharad",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+10",
+        "segment": "SMB"
+      },
+      {
+        "title": "APAC \u2014 Studio Growth email sequence + list enrichment",
+        "bucket": "Always On / Email",
+        "status": "not started",
+        "impact": "low",
+        "region": "APAC",
+        "owner": "Angharad",
+        "target_week": "May",
+        "kpi": "SQL",
+        "sql_impact": "+10",
+        "segment": "SMB"
+      }
     ],
     "web_seo": [
-      { "title": "Competitor LPs — MBO, Momence, WL, Zenplanner, Mariana Tek (rewrites)", "bucket": "SEO / AEO", "status": "in progress", "impact": "high", "region": "NA + EMEA", "owner": "Ben / NBA", "target_week": "April", "kpi": "CVR", "sql_impact": "+280" },
-      { "title": "Modality pages — Pilates, Yoga, Wellness Studio, PT Studio (in build)", "bucket": "SEO / AEO", "status": "in progress", "impact": "high", "region": "NA + EMEA", "owner": "Ben", "target_week": "April", "kpi": "MQL", "sql_impact": "+25" },
-      { "title": "Modality pages — Boxing, Martial Arts, Spin, CrossFit (design queue)", "bucket": "SEO / AEO", "status": "not started", "impact": "medium", "region": "NA + EMEA", "owner": "Ben", "target_week": "May", "kpi": "MQL", "sql_impact": "+25" },
-      { "title": "NBA pages + AEO content (not yet briefed)", "bucket": "SEO / AEO", "status": "not started", "impact": "medium", "region": "NA + EMEA", "owner": "Ben / NBA", "target_week": "April", "kpi": "MQL", "sql_impact": "+25" },
-      { "title": "Feature pages x10 — AI, Memberships, Check-in, Bookings, CBA…", "bucket": "SEO / AEO", "status": "not started", "impact": "medium", "region": "NA + EMEA", "owner": "Ben", "target_week": "May", "kpi": "MQL", "sql_impact": "+25" },
-      { "title": "ROI Calculators x6 (3 ABC + 3 GF) — final updates this week", "bucket": "BAU / Support", "status": "in progress", "impact": "high", "region": "ALL", "owner": "Ben / Henrique", "target_week": "April", "kpi": "MQL", "sql_impact": "+25" },
-      { "title": "GymLaunch custom LP (building frame — assets from Nick)", "bucket": "BAU / Support", "status": "in progress", "impact": "medium", "region": "EMEA", "owner": "Ben", "target_week": "April", "kpi": "MQL", "sql_impact": "+75" },
-      { "title": "Get a Quote Paid LP", "bucket": "BAU / Support", "status": "in progress", "impact": "medium", "region": "ALL", "owner": "Ben", "target_week": "April", "kpi": "CVR", "sql_impact": "+106" },
-      { "title": "Homepage redesign + CRO (new template + components)", "bucket": "BAU / Support", "status": "in progress", "impact": "high", "region": "ALL", "owner": "Ben", "target_week": "May", "kpi": "CVR", "sql_impact": "+73" },
-      { "title": "[PAID] Form test — shortened modality dropdown (launching this week)", "bucket": "CRO / Experimentation", "status": "in progress", "impact": "high", "region": "ALL", "owner": "Ben / Markus", "target_week": "April", "kpi": "CVR", "sql_impact": "+174" },
-      { "title": "[ORG] Pricing page AB tests (variant 2 + 3)", "bucket": "CRO / Experimentation", "status": "not started", "impact": "high", "region": "ALL", "owner": "Ben", "target_week": "May–June", "kpi": "CVR", "sql_impact": "+73" }
+      {
+        "title": "Competitor LPs \u2014 MBO, Momence, WL, Zenplanner, Mariana Tek (rewrites)",
+        "bucket": "SEO / AEO",
+        "status": "in progress",
+        "impact": "high",
+        "region": "NA + EMEA",
+        "owner": "Ben / NBA",
+        "target_week": "April",
+        "kpi": "CVR",
+        "sql_impact": "+280",
+        "segment": "SMB"
+      },
+      {
+        "title": "Modality pages \u2014 Pilates, Yoga, Wellness Studio, PT Studio (in build)",
+        "bucket": "SEO / AEO",
+        "status": "in progress",
+        "impact": "high",
+        "region": "NA + EMEA",
+        "owner": "Ben",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "Modality pages \u2014 Boxing, Martial Arts, Spin, CrossFit (design queue)",
+        "bucket": "SEO / AEO",
+        "status": "not started",
+        "impact": "medium",
+        "region": "NA + EMEA",
+        "owner": "Ben",
+        "target_week": "May",
+        "kpi": "MQL",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "NBA pages + AEO content (not yet briefed)",
+        "bucket": "SEO / AEO",
+        "status": "not started",
+        "impact": "medium",
+        "region": "NA + EMEA",
+        "owner": "Ben / NBA",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "Feature pages x10 \u2014 AI, Memberships, Check-in, Bookings, CBA\u2026",
+        "bucket": "SEO / AEO",
+        "status": "not started",
+        "impact": "medium",
+        "region": "NA + EMEA",
+        "owner": "Ben",
+        "target_week": "May",
+        "kpi": "MQL",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "ROI Calculators x6 (3 ABC + 3 GF) \u2014 final updates this week",
+        "bucket": "BAU / Support",
+        "status": "in progress",
+        "impact": "high",
+        "region": "ALL",
+        "owner": "Ben / Henrique",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+25",
+        "segment": "SMB"
+      },
+      {
+        "title": "GymLaunch custom LP (building frame \u2014 assets from Nick)",
+        "bucket": "BAU / Support",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "EMEA",
+        "owner": "Ben",
+        "target_week": "April",
+        "kpi": "MQL",
+        "sql_impact": "+75",
+        "segment": "SMB"
+      },
+      {
+        "title": "Get a Quote Paid LP",
+        "bucket": "BAU / Support",
+        "status": "in progress",
+        "impact": "medium",
+        "region": "ALL",
+        "owner": "Ben",
+        "target_week": "April",
+        "kpi": "CVR",
+        "sql_impact": "+106",
+        "segment": "SMB"
+      },
+      {
+        "title": "Homepage redesign + CRO (new template + components)",
+        "bucket": "BAU / Support",
+        "status": "in progress",
+        "impact": "high",
+        "region": "ALL",
+        "owner": "Ben",
+        "target_week": "May",
+        "kpi": "CVR",
+        "sql_impact": "+73",
+        "segment": "SMB"
+      },
+      {
+        "title": "[PAID] Form test \u2014 shortened modality dropdown (launching this week)",
+        "bucket": "CRO / Experimentation",
+        "status": "in progress",
+        "impact": "high",
+        "region": "ALL",
+        "owner": "Ben / Markus",
+        "target_week": "April",
+        "kpi": "CVR",
+        "sql_impact": "+174",
+        "segment": "SMB"
+      },
+      {
+        "title": "[ORG] Pricing page AB tests (variant 2 + 3)",
+        "bucket": "CRO / Experimentation",
+        "status": "not started",
+        "impact": "high",
+        "region": "ALL",
+        "owner": "Ben",
+        "target_week": "May\u2013June",
+        "kpi": "CVR",
+        "sql_impact": "+73",
+        "segment": "SMB"
+      }
     ]
   }
 }
